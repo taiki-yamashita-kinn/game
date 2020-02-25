@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/help.css" />
+  <link rel="icon" href="ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+  <title>#{langLabelBean.getLabel('help')}</title>
+	<script defer="defer" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3832194717486071",
+    enable_page_level_ads: true
+  });
+</script>
+  </h:head>
+  <h:body>
+	<ui:include src="template/header.xhtml" />
+  <h:form>
+  		<p:panel styleClass="right">
+			<p:outputLabel for="searchData" value="filter"/>
+	  		<p:inputText id="searchData" value="#{helpBean.filterData}">
+	  			<p:ajax event="keyup" listener="#{helpBean.selectFilterData()}" update="helpTable" process="@this searchData"/>
+	  		</p:inputText>
+  		</p:panel>
+	  	<p:dataTable id="helpTable" var="help" value="#{helpBean.helpMessageList}" styleClass="helpTable"
+	       paginator="true" rows="20">
+			<f:facet name="header">
+	            #{langLabelBean.getLabel('help')}
+	        </f:facet>
+	        <p:column>
+				<p:link href="#{help.url}" value="#{help.text}" target="_blank"/>
+			</p:column>
+		</p:dataTable>
+  	</h:form>
+  </h:body>
+</html>

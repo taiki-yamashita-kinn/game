@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pe="http://primefaces.org/ui/extensions"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+  <title>#{liarGamePageBean.game.gameName}</title>
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@OnlineLiar" />
+	<meta name="twitter:title" content="#{liarGamePageBean.game.gameName}" />
+	<meta name="twitter:description" content="#{liarGamePageBean.game.gameName}を開催します" />
+	<meta name="twitter:image" content="https://cdn.pixabay.com/photo/2014/03/25/20/17/roulette-298029__340.jpg" />
+  <link rel="stylesheet" type="text/css" href="../css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../css/liar/liarGamePage.css" />
+  <link rel="icon" href="../ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+	<script src="../js/websocket2.js"/>
+<script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script async="async" src="https://apis.google.com/js/platform.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9266770545412327",
+    enable_page_level_ads: true
+  });
+</script>
+  </h:head>
+  <h:body>
+	<ui:include src="../template/header2.xhtml" />
+	<h:form id="form">
+	<p:panelGrid>
+		<p:row>
+			<p:column styleClass="center">
+				<h:outputText value="#{liarGamePageBean.game.gameName}" styleClass="gameTitleFont"/>
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+	<br/>
+	  	<table>
+	  		<tr>
+	  		<td></td>
+	  			<td class="center" colspan="5">
+	  				<p:commandButton value="#{langLabelBean.getLabel('concert')}"
+	  				 actionListener="#{liarGamePageBean.joinChatRoom('0')}" styleClass="buttonArea"
+	  				process="@this form:gameId"/>
+	  			</td>
+	  			<td>
+	  			<div class="g-ytsubscribe" data-channelid="UCQb94DwNOEDb3I3fomPEXEQ" data-layout="full" data-theme="dark" data-count="default">
+				</div></td>
+	  		</tr>
+	  	</table>
+	  		<p:tabView id="tabPanel">
+	  		<p:tab title="#{langLabelBean.getLabel('join_game_list')}">
+		  		<p:dataScroller id="joinUser" value="#{tabUserListBean.viewUsers}" var="viewUser" mode="inline" scrollHeight="500">
+			  		<f:facet name="header" styleClass="font" >
+				       #{langLabelBean.getLabel('join_game_list')}
+				    </f:facet>
+				    <p:panelGrid>
+					    <p:column>
+							<p:graphicImage id="userImage" value="#{(empty viewUser.picturePath) ? '/media/image/women.png' : viewUser.picturePath}"
+							 stream="false" styleClass="image"/>
+					    </p:column>
+					    <p:column colspan="2" styleClass="left">
+					        <h:outputText value="#{viewUser.userName}" styleClass="font"/>
+					        <h:outputText value="#{langLabelBean.getLabel('master')}" styleClass="font"
+					        rendered="#{viewUser.userId == liarGamePageBean.game.userMasterId}"/>
+					    </p:column>
+					    <p:column styleClass="center">
+					        <p:commandButton value="#{langLabelBean.getLabel('expulsion')}" process="@this form:gameId"
+					        update="form:tabPanel"
+					        rendered="#{liarGamePageBean.kickFlag and viewUser.userId != liarGamePageBean.game.userMasterId}"
+					        actionListener="#{liarGamePageBean.kickGame(viewUser.userId, viewUser.userName)}"
+					        oncomplete="location.reload();"/>
+					    </p:column>
+				    </p:panelGrid>
+		  		</p:dataScroller>
+	  		</p:tab>
+	  		<p:tab title="#{langLabelBean.getLabel('room_list')}">
+		  		<p:dataScroller id="chatTable" value="#{tabUserListBean.chatUserList}" var="chatUser" mode="inline" scrollHeight="450">
+			  		<f:facet name="header">
+						<p:commandButton value="#{langLabelBean.getLabel('create_room')}" process="@this form:gameId"
+							actionListener="#{liarGamePageBean.addChat()}" icon="fa fa-plus" id="addButton" styleClass="buttonDefault"
+							disabled="#{liarGamePageBean.game.speakFlag == '1' or loginInfo.gameId != liarGamePageBean.game.id}">
+							<p:ajax event="dialogReturn" oncomplete="location.reload();" />
+						</p:commandButton>
+				    </f:facet>
+				    <p:commandButton actionListener="#{liarGamePageBean.joinChatRoom(chatUser.roomId)}"
+				     process="@this form:gameId" value="#{chatUser.roomName}"/>
+		  		</p:dataScroller>
+		  	</p:tab>
+		  	</p:tabView>
+	  	   <p:inputText id="gameId" type="hidden" value="#{viewGameIdBean.gameId}" />
+	  </h:form>
+	<br/>
+        <h:form>
+            <h:commandScript name="updateGame" action="#{liarGamePageBean.updatePage}" render="form"/>
+        </h:form>
+  </h:body>
+</html>

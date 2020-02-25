@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+  <title>#{langLabelBean.getLabel('create_game_screen')}</title>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" type="text/css" href="../css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../css/liar/newBuildLiarGame.css" />
+	<link rel="icon" href="../ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+  </h:head>
+  <h:body>
+	<ui:include src="../template/header.xhtml" />
+  <h:form id="form">
+	<p:messages id="messages" closable="true" />
+  	<table>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="gameName" value="#{langLabelBean.getLabel('game_name')}"
+	  			 styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+	  			<p:selectOneMenu value="#{templateGameBean.templateGame.id}">
+	  				<f:selectItems value="#{templateGameBean.templateGameList}" var="template" itemLabel="#{template.gameName}"
+	  				itemValue="#{template.id}" />
+	  				<p:ajax event="itemSelect" process="@this" update="form" listener="#{templateGameBean.selectEventGame()}"/>
+	  			</p:selectOneMenu>
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="startTime" value="#{langLabelBean.getLabel('start_time')}"
+	  			 styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+	  			<p:calendar id="startTime" value="#{newBuildLiarGameBean.newGame.startTime}"
+	  			 label="#{langLabelBean.getLabel('start_time')}"
+	  			pattern="MM/dd/yyyy HH:mm" stepMinute="5">
+		  		</p:calendar>
+				<p:watermark for="startTime" value="#{langLabelBean.getLabel('able_choose')}" />
+	  		</td>
+	  	</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="gameOpen" value="#{langLabelBean.getLabel('game_open_flag')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<p:selectOneRadio id="gameOpen" label="#{langLabelBean.getLabel('game_open_flag')}"
+		  		 value="#{newBuildLiarGameBean.newGame.gameOpen}"  styleClass="fontWhite">
+		            <f:selectItem itemLabel="#{langLabelBean.getLabel('game_open')}" itemValue="1" styleClass="fontWhite"/>
+		            <f:selectItem itemLabel="#{langLabelBean.getLabel('game_close')}" itemValue="0" styleClass="fontWhite"/>
+		  		</p:selectOneRadio>
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="accessCode" value="#{langLabelBean.getLabel('accsess_code')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+	  			<p:inputText id="accessCode" value="#{newBuildLiarGameBean.newGame.accessCode}"
+	  			 label="#{langLabelBean.getLabel('accsess_code')}" maxlength="10" style="width:40%;"/>
+				<p:watermark for="accessCode"
+				 value="#{langLabelBean.getLabel('hankaku_ei')}10#{langLabelBean.getLabel('by_input_little')}" />
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="advertise" value="#{langLabelBean.getLabel('advertise_twitter')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+	  			<p:inputSwitch id="advertise" value="#{newBuildLiarGameBean.advertiseTwitterFlag}" />
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2">
+  				<p:commandButton value="#{langLabelBean.getLabel('create')}" styleClass="buttonDefault" process="form" id="create"
+	  				actionListener="#{newBuildLiarGameBean.register()}" update="headerForm form"/>
+	  		</td>
+	  		<td colspan="2">
+  				<p:commandButton value="#{langLabelBean.getLabel('clear')}" styleClass="buttonDefault" immediate="true"
+	  				actionListener="#{newBuildLiarGameBean.clear()}" process="@this" update="form"/>
+	  		</td>
+	  	</tr>
+  	</table>
+	  	<p:blockUI block="form" trigger="create" />
+  	</h:form>
+  </h:body>
+</html>

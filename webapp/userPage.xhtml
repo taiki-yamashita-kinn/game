@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>#{langLabelBean.getLabel('mypage')}</title>
+	<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8" />
+  	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@OnlineLiar" />
+	<meta name="twitter:title" content="#{userPageBean.selectUser.userName}" />
+	<meta name="twitter:description" content="#{userPageBean.selectUser.userName}のマイページです" />
+	<meta name="twitter:image" content="https://cdn.pixabay.com/photo/2015/11/07/11/08/cards-1030852__340.jpg" />
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/userPage.css" />
+	<link rel="icon" href="ico/favicon.ico"/>
+	<h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+	<script defer="defer" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3832194717486071",
+    enable_page_level_ads: true
+  });
+</script>
+</h:head>
+<h:body>
+	<ui:include src="template/header.xhtml" />
+<h:form>
+	<p:growl id="growl"/>
+	<p:panelGrid>
+		<p:row class="center">
+			<p:column styleClass="left">
+				<p:graphicImage id="picture" value="#{(empty userPageBean.selectUser.picturePath) ? '/media/image/women.png' : userPageBean.selectUser.picturePath}"
+				 stream="false" styleClass="image" />
+				<h:outputText value="#{userPageBean.selectUser.userName}" styleClass="gameTitleFont"
+				style="vertical-align:bottom;left:10px;"/>
+			</p:column>
+		</p:row>
+		<p:row class="center">
+			<p:column>
+				<p:panelGrid>
+					<p:column class="right">
+						<p:outputLabel value="#{langLabelBean.getLabel('evaluation')}" />
+					</p:column>
+					<p:column class="left">
+						<h:outputText value="#{userPageBean.selectUser.evaluation}"/>
+					</p:column>
+				</p:panelGrid>
+				<p:panelGrid>
+					<p:column class="right">
+						<p:outputLabel value="#{langLabelBean.getLabel('number_of_battle')}"/>
+					</p:column>
+					<p:column class="left">
+						<h:outputText value="#{userPageBean.selectUser.battleCount}" />
+					</p:column>
+				</p:panelGrid>
+			</p:column>
+		</p:row>
+		<p:row class="center">
+			<p:column>
+				<p:panelGrid>
+					<p:column class="right">
+						<p:outputLabel value="#{langLabelBean.getLabel('profile')}" />
+					</p:column>
+					<p:column class="left">
+						<h:outputText value="#{userPageBean.selectUser.profile}" style="white-space: pre-line;"/>
+					</p:column>
+				</p:panelGrid>
+			</p:column>
+		</p:row>
+		<p:row class="center" rendered="#{userPageBean.selectUser.url != ''}">
+			<p:column>
+				<p:panelGrid>
+					<p:column class="right">
+						<p:outputLabel value="#{langLabelBean.getLabel('attach_url')}" />
+					</p:column>
+					<p:column class="left">
+						<p:link id="presentation" title="#{userPageBean.selectUser.url}" href="#{userPageBean.selectUser.url}"
+						 target="_blank" style="display:block;width:fit-content;" >
+							<p:graphicImage url="../ico/google_slide.ico" width="40" height="40" />
+						</p:link>
+					</p:column>
+				</p:panelGrid>
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+</h:form>
+</h:body>
+</html>

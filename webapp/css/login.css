@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+.label{
+	width:30%;
+}
+.inputArea {
+	width:85%;
+}
+
+body{
+	background-image: url(../image/login.jpg);
+  	background-size: cover;
+}

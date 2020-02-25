@@ -1,0 +1,10 @@
+@charset "UTF-8";
+body {
+	background-image: url(../image/gambling.jpg);
+  	background-size: cover;
+}
+
+.textFont{
+	font-size:20px;
+	font-weight:900;
+}

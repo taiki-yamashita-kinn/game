@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="common.mapper.CommonMapper">
+	<select id="selectUser" parameterType="String" resultType="common.dto.UserDto">
+	SELECT
+		user.id AS userId,
+	    user.userName,
+	    user.password,
+	    user.twitterAccount,
+	    userurl.url,
+	    user.profile,
+	    user.creativeParameter,
+	    user.logicParameter,
+	    user.volunteerParameter,
+	    user.individualParameter,
+	    user.favoriteParameter,
+	    user.evaluation,
+	    user.battleCount,
+	    user.theme,
+	    user.gameId,
+	    user.userLanguage,
+    	user.imagePath as picturePath,
+	    user.startDate
+	FROM game.user left outer join game.userurl
+	on
+	userurl.userId = user.id
+	WHERE
+	user.id = #{userId}
+	AND user.isStop = '0'
+	</select>
+
+	<select id="selectLoginUser" parameterType="String" resultType="common.dto.LoginInfo">
+	SELECT
+		user.id AS userId,
+	    user.userName,
+	    user.password,
+	    user.twitterAccount,
+		user.userLanguage,
+	    user.gameId,
+	    user.theme
+	FROM game.user
+	WHERE
+	user.id = #{userId}
+	AND user.isStop = '0'
+	</select>
+
+	<update id="updateSpeakFlag" parameterType="String">
+	UPDATE game.liargame
+	SET speakFlag = #{flag}
+	<if test="flag == 0">
+	,round = round + 1
+	</if>
+	WHERE id = #{gameId}
+	</update>
+
+	<update id="updateGameEndUser" parameterType="String">
+	UPDATE game.user
+	SET
+	battleCount = battleCount + 1
+	,isGame = '0'
+	WHERE gameId = #{gameId}
+	</update>
+
+	<delete id="deleteUser" parameterType="String">
+	DELETE FROM game.user
+	WHERE user.id = #{userId}
+	</delete>
+
+	<update id="stopUser" parameterType="String">
+	UPDATE game.user
+	SET
+	isStop = '1'
+	WHERE id = #{userId}
+	</update>
+
+	<delete id="deleteUserMessage" parameterType="String">
+	DELETE FROM game.message
+	WHERE message.userId = #{userId}
+	</delete>
+
+	<delete id="deleteGame" parameterType="String">
+	DELETE FROM game.liargame
+	WHERE liargame.id = #{gameId}
+	</delete>
+
+	<delete id="deleteChat" parameterType="String">
+	DELETE FROM game.chatroom
+	WHERE chatroom.gameId = #{gameId}
+	</delete>
+
+	<delete id="deleteGameMessage" parameterType="String">
+	DELETE FROM game.message
+	WHERE message.gameId = #{gameId}
+	</delete>
+
+	<delete id="deleteJoinGame" parameterType="String">
+	DELETE FROM game.joingame
+	WHERE joingame.gameId = #{gameId}
+	</delete>
+
+
+	<insert id="insertJoin" parameterType="String">
+	INSERT INTO game.joingame
+    (gameId
+    ,userId)
+  	 values (
+  	#{gameId}
+  	,#{userId})
+	</insert>
+
+
+	<select id="selectLabel" resultType="java.util.Map">
+	SELECT
+		label.labelId as labelId,
+	    label.label_japan as labelJapan,
+	    label.label_english as labelEnglish
+	FROM game.label
+	</select>
+	
+	<select id="selectJoinUser" parameterType="String" resultType="String">
+	SELECT
+		count(*)
+	FROM joingame
+	<trim prefix="WHERE" prefixOverrides="AND|OR">
+		joingame.userId = #{userId}
+		<if test="gameId != null and gameId != ''">
+		AND joingame.gameId = #{gameId}
+		</if>
+	</trim>
+	</select>
+</mapper>

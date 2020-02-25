@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.liarChat.mapper.LiarChatMapper">
+	<select id="selectRoomName" parameterType="java.util.Map" resultType="String">
+	SELECT
+		chatroom_manage.roomName
+	FROM chatroom_manage,join_chatroom
+	<trim prefix="WHERE" prefixOverrides="AND|OR">
+		join_chatroom.userId = #{userId}
+		AND chatroom_manage.id = join_chatroom.roomId
+		<if test="roomId != null and roomId != ''">
+		AND chatroom_manage.id = #{roomId}
+		</if>
+		<if test="gameId != null and gameId != ''">
+		AND chatroom_manage.gameId = #{gameId}
+		</if>
+	</trim>
+	</select>
+	<select id="selectGameMessage" parameterType="java.util.Map" resultType="common.dto.MessageDto">
+	SELECT
+	message.id,
+    message.userId,
+    message.roomId,
+    message.gameId,
+	message.message,
+    message.speakDate,
+    user.userName,
+    user.imagePath as picturePath,
+    CASE
+		WHEN message.gameMasterFlag = '1' THEN
+			'chatCenter'
+		WHEN message.userId = '1' THEN
+			'chatCenter'
+		WHEN message.userId = #{userId} THEN
+			'chatRight'
+		ELSE
+			'chatLeft'
+		END AS styleClass
+	FROM message,user
+	<trim prefix="WHERE" prefixOverrides="AND|OR">
+		message.userId = user.Id
+		<if test="roomId != null and roomId != ''">
+		AND message.roomId = #{roomId}
+		</if>
+		<if test="gameId != null and gameId != ''">
+		AND message.gameId = #{gameId}
+		</if>
+	</trim>
+	ORDER BY speakDate DESC
+	</select>
+
+	<insert id="insertGameMessage" parameterType="java.util.Map">
+	INSERT INTO message
+	(userId,
+	roomId,
+	gameId,
+	message,
+    speakDate,
+    gameMasterFlag,
+    round)
+  	 VALUES (
+  	#{userId}
+  	,#{roomId}
+  	,#{gameId}
+  	,#{message}
+  	,SYSDATE()
+  	,CASE
+		WHEN #{userId} = (SELECT userMasterId FROM liargame WHERE liargame.id = #{gameId}) THEN
+			'1'
+		ELSE
+			'0'
+		END
+	,(SELECT round FROM liargame WHERE liargame.id = #{gameId}));
+	</insert>
+
+	<select id="selectGameSpeakFlag" parameterType="String" resultType="common.dto.ChatRoomDto">
+	SELECT
+		liargame.id AS gameId
+		,liargame.userMasterId as userMasterId
+		,liargame.gameOpen
+		,liargame.speakFlag
+	FROM
+		game.liargame
+	WHERE
+		liargame.id = #{gameId}
+	</select>
+	
+
+</mapper>

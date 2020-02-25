@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+body {
+	/* background-color: #363a27 */
+	background-image: url(../../image/liar/explainGame.jpg);
+}
+.ui-inputfield {
+    width:auto!important;
+}
+
+.font {
+	font-size: 25px;
+}
+
+.helpTable {
+	width:50%;
+	margin:auto;
+}
+@media screen and (max-width:767px) {
+	.helpTable {
+		width:90%;
+		margin:auto;
+	}
+
+}

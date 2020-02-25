@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>#{explainLiarGameBean.game.gameName}</title>
+	<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8" />
+  	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@OnlineLiar" />
+	<meta name="twitter:title" content="#{explainLiarGameBean.game.gameName}" />
+	<meta name="twitter:description" content="#{langLabelBean.getLabel('game_description')}" />
+	<meta name="twitter:image" content="https://cdn.pixabay.com/photo/2015/11/07/11/08/cards-1030852__340.jpg" />
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<link rel="stylesheet" type="text/css" href="../css/liar/explainLiarGame.css" />
+	<link rel="icon" href="../ico/favicon.ico"/>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+	<script defer="defer" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script async="async" src="https://apis.google.com/js/platform.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3832194717486071",
+    enable_page_level_ads: true
+  });
+</script>
+</h:head>
+<h:body>
+	<ui:include src="../template/header3.xhtml" />
+<h:form id="form">
+	<p:messages id="message" closable="true" />
+	<p:growl id="growl"/>
+	<p:panelGrid>
+		<p:row>
+			<p:column styleClass="center">
+				<h:outputText value="#{explainLiarGameBean.game.gameName}" styleClass="gameTitleFont"/>
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+	
+		<p:panelGrid>
+			<p:row>
+				<p:column class="right label">
+					<h:outputText value="#{langLabelBean.getLabel('start_time')}:"  styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<h:outputText value="#{explainLiarGameBean.game.startTimeData}" styleClass="font"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column class="right label">
+					<h:outputText value="#{langLabelBean.getLabel('end_time')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<h:outputText value="#{explainLiarGameBean.game.endTimeData}" styleClass="font"/>
+				</p:column>
+			</p:row>
+			<p:row rendered="#{not empty explainLiarGameBean.game.separateTime}">
+				<p:column class="right label">
+					<h:outputText value="#{langLabelBean.getLabel('one_round_minutes')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<h:outputText value="#{explainLiarGameBean.game.separateTime}分" styleClass="font"/>
+				</p:column>
+			</p:row>
+			<p:row rendered="#{not empty explainLiarGameBean.game.banSpeakMinutes}">
+				<p:column class="right label">
+					<h:outputText value="#{langLabelBean.getLabel('ban_speak_minutes')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<h:outputText value="#{explainLiarGameBean.game.banSpeakMinutes}分" styleClass="font"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column class="right label">
+					<h:outputText value="#{langLabelBean.getLabel('level')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<h:outputText value="#{explainLiarGameBean.game.level}" styleClass="font"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column class="right label">
+					<h:outputText value="#{langLabelBean.getLabel('evaluation')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<h:outputText value="#{explainLiarGameBean.game.evaluation}" styleClass="font"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column class="right label">
+					<h:outputText value="#{langLabelBean.getLabel('join_how_many_people')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<h:outputText value="#{explainLiarGameBean.game.peopleCount}  ※参加人数0の場合は制限なしという意味です" styleClass="font"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column class="right label">
+					<h:outputText value="#{langLabelBean.getLabel('join_how_many_people_now')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<h:outputText value="#{explainLiarGameBean.game.nowPeopleCount}" styleClass="font"/>
+				</p:column>
+			</p:row>
+			<p:row rendered="#{not empty explainLiarGameBean.game.accessCode}">
+				<p:column class="right label">
+					<p:outputLabel for="accessCode"
+					 value="#{langLabelBean.getLabel('accsess_code')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<p:inputText id="accessCode" value="#{explainLiarGameBean.accessCode}" 
+					disabled="#{explainLiarGameBean.game.accessCode == null or explainLiarGameBean.game.accessCode == ''}"/>
+				</p:column>
+			</p:row>
+			<p:row class="right label" rendered="#{not empty explainLiarGameBean.game.documentUrl 
+			or not empty explainLiarGameBean.game.presentationUrl or not empty explainLiarGameBean.game.spreadUrl}">
+				<p:column class="right label">
+					<p:outputLabel value="#{langLabelBean.getLabel('attach_url')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left">
+					<p:link id="document" title="#{explainLiarGameBean.game.documentUrl}" href="#{explainLiarGameBean.game.documentUrl}"
+					 target="_blank" style="display:block;width:fit-content;" rendered="#{explainLiarGameBean.game.documentUrl != ''}">
+						<p:graphicImage url="../ico/google_doc.ico" width="40" height="40" />
+					</p:link>
+					<p:link id="presentation" title="#{explainLiarGameBean.game.presentationUrl}" href="#{explainLiarGameBean.game.presentationUrl}"
+					 target="_blank" style="display:block;width:fit-content;" rendered="#{explainLiarGameBean.game.presentationUrl != ''}">
+						<p:graphicImage url="../ico/google_slide.ico" width="40" height="40" />
+					</p:link>
+					<p:link id="spread" title="#{explainLiarGameBean.game.spreadUrl}" href="#{explainLiarGameBean.game.spreadUrl}"
+					 target="_blank" style="display:block;width:fit-content;" rendered="#{explainLiarGameBean.game.spreadUrl != ''}">
+						<p:graphicImage url="../ico/google_spread.ico" width="40" height="40" />
+					</p:link>
+				</p:column>
+			</p:row>
+			<p:row class="right label" rendered="#{not empty explainLiarGameBean.game.explanation}">
+				<p:column class="right" style="width:50px;vertical-align: top;">
+					<h:outputText value="#{langLabelBean.getLabel('description')}:" styleClass="font"/>
+				</p:column>
+				<p:column class="left" style="vertical-align:top;">
+					<h:outputText value="#{explainLiarGameBean.game.explanation}" style="white-space: pre-line;" styleClass="font"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<br/>
+		<table>
+			<tr class="center">
+				<td class="center">
+					<p:commandButton value="#{explainLiarGameBean.buttonTitle}" styleClass="buttonDefault font"
+					 process="accessCode @this" update="message" action="#{explainLiarGameBean.transJoin(explainLiarGameBean.game.id)}" 
+					 disabled="#{explainLiarGameBean.buttonFlag}">
+		  				<p:confirm header="#{langLabelBean.getLabel('confirm_join')}"
+		  				 message="#{langLabelBean.getLabel('do_you_join')}" icon="fa fa-warning" 
+		  				disabled="#{explainLiarGameBean.joinFlag}"/>
+					</p:commandButton>
+		  			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				        <p:commandButton id="ok" value="#{langLabelBean.getLabel('ok')}" type="submit" icon="fa fa-thumbs-up" styleClass="ui-confirmdialog-yes"/>
+				        <p:commandButton value="#{langLabelBean.getLabel('cancel')}" type="button" icon="fa fa-remove" styleClass="ui-confirmdialog-no"/>
+				    </p:confirmDialog>
+				</td>
+				<td class="center">
+					<p:commandButton value="#{langLabelBean.getLabel('viewer')}" styleClass="buttonDefault font" process="@this"
+							action="#{explainLiarGameBean.viewGame(explainLiarGameBean.game.id)}"  update="message" 
+							disabled="#{empty viewGameIdBean.gameId or explainLiarGameBean.game.gameOpen == '0'}">
+					</p:commandButton>
+				</td>
+				<td class="center">
+					<p:button value="#{langLabelBean.getLabel('back')}" styleClass="buttonDefault font"
+					immediate="true" outcome="/liarGameList.xhtml?faces-redirect=true"
+					disabled="#{empty viewGameIdBean.gameId}">
+					</p:button>
+				</td>
+			</tr>
+		</table>
+	  	<p:blockUI block="form" trigger="ok" />
+		<div>
+			<p:link href="#{explainLiarGameBean.advertiseUrl}" rendered="#{not empty explainLiarGameBean.advertiseUrl}"
+			 title="#{langLabelBean.getLabel('advertise_twitter')}"
+			  style="display:block;width:fit-content;" target="_blank">
+				<p:graphicImage url="../image/Twitter.png" styleClass="twitter"/>
+			</p:link>
+		</div>
+	  	   <p:inputText id="gameId" type="hidden" value="#{viewGameIdBean.gameId}" />
+</h:form>
+ 	<div class="g-ytsubscribe" data-channelid="UCQb94DwNOEDb3I3fomPEXEQ" data-layout="full" data-theme="dark" data-count="default"></div>
+</h:body>
+</html>

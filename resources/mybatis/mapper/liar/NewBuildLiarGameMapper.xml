@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.newBuildLiarGame.mapper.NewBuildLiarGameMapper">
+
+	<insert id="insertLiarGame" parameterType="java.util.Map">
+	INSERT INTO game.liargame
+
+    (gameName
+    ,userMasterId
+    ,explanation
+    ,startTime
+    ,endTime
+    ,peopleCount
+    ,separateTime
+    ,oneDaySessionTimes
+    ,banMinutes
+    ,level
+    ,evaluation
+    ,accessCode
+    ,gameOpen
+    ,isStop)
+
+  	 values (
+  	#{gameName}
+  	,#{userMasterId}
+  	,#{explanation}
+  	,#{startTime}
+  	,#{endTime}
+  	,#{peopleCount}
+  	,#{separateTime}
+  	,#{oneDaySessionTimes}
+  	,#{banMinutes}
+  	,#{level}
+  	,#{evaluation}
+  	,#{accessCode}
+  	,#{gameOpen}
+  	,#{isStop})
+
+  	<!-- 自動採番されたIDを取得 -->
+    <selectKey resultType="String" keyProperty="id" order="AFTER">
+        select @@IDENTITY
+    </selectKey>
+
+	</insert>
+
+<!-- ゲーム作成者のゲームIDを更新する -->
+	<update id="updateUser" parameterType="String">
+	UPDATE game.user
+	SET
+	gameId = #{gameId}
+	,isGame = '1'
+	WHERE user.id = #{userId};
+	</update>
+
+	<insert id="insertGameUrl" parameterType="java.util.Map">
+	INSERT INTO game.googleid
+	(gameId
+	,presentationId
+	,spreadsheetsId
+	,documentId)
+	VALUES
+	(#{id},
+	#{presentationId},
+	#{spreadId},
+	#{documentId});
+	</insert>
+
+	<!-- ゲーム開始のシステムメッセージを挿入する -->
+	<insert id="insertSystemMessage" parameterType="java.util.Map">
+	INSERT INTO game.message
+	(userId,
+	roomId,
+	gameId,
+	message,
+	speakDate,
+	gameMasterFlag)
+	VALUES
+	('1',
+	'0',
+	#{id},
+	#{sysMessage},
+	SYSDATE(),
+	'1');
+	</insert>
+</mapper>

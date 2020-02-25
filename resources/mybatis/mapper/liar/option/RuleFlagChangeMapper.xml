@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.option.ruleFlagChange.mapper.RuleFlagChangeMapper">
+
+	<insert id="insertFlagChange" parameterType="java.util.Map">
+		INSERT INTO game.rulechange
+		(userId,
+		gameId,
+		flagMessage,
+		successMessage,
+		insertDate)
+		VALUES
+		(#{userId},
+		#{gameId},
+		#{value},
+		#{successMessage},
+		SYSDATE());
+	</insert>
+
+	<insert id="updateUserFlagChange" parameterType="java.util.Map">
+	INSERT INTO game.rulechange
+	(id,
+	userId,
+	gameId,
+	insertDate)
+	VALUES
+	(#{id},
+	#{userId},
+	#{gameId},
+	SYSDATE());
+	</insert>
+
+	<select id="selectFlagChange"  parameterType="java.util.Map" resultType="java.util.Map">
+	select id,successMessage from game.rulechange where flagMessage like '%#{value}%'
+	</select>
+
+
+</mapper>

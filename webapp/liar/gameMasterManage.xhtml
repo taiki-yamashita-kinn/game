@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>#{langLabelBean.getLabel('master_page')}</title>
+	<meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<link rel="stylesheet" type="text/css" href="../css/liar/gameMasterManage.css" />
+	<link rel="icon" href="../ico/favicon.ico"/>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+<script src="../js/websocket2.js"/>
+</h:head>
+<h:body>
+	<ui:include src="../template/header.xhtml" />
+<h:form id="form">
+<p:commandButton id="close" value="#{langLabelBean.getLabel('back')}" icon="fa fa-comments"
+  		actionListener="#{gameMasterManageBean.backGamePage()}" process="@this"/>
+	<p:tabView id="tabPanel">
+	<p:ajax event="tabChange" listener="#{gameMasterManageBean.clear()}" update="tabPanel"/>
+        <p:tab title="#{langLabelBean.getLabel('talk')}">
+		<p:growl id="growl"/>
+	  	<p:panelGrid id="searchTable">
+	  		<p:row styleClass="center">
+	  			<p:column styleClass="right">
+	  				<p:outputLabel value="#{langLabelBean.getLabel('user_name')}" for="userList" styleClass="font"/>
+	  			</p:column>
+	  			<p:column styleClass="left" colspan="2">
+			  		<p:selectOneMenu id="userList" value="#{gameMasterManageBean.searchData.userId}">
+			  			<f:selectItem itemLabel="#{langLabelBean.getLabel('all_user')}" itemValue="" />
+			  			<f:selectItems value="#{gameMasterManageBean.userList}"/>
+			  		</p:selectOneMenu>
+	  			</p:column>
+	  		</p:row>
+	  		<p:row styleClass="center">
+	  			<p:column styleClass="right">
+	  				<p:outputLabel value="#{langLabelBean.getLabel('message')}"  styleClass="font"/>
+	  			</p:column>
+	  			<p:column styleClass="left" colspan="2">
+	  				<p:inputText styleClass="inputArea" value="#{gameMasterManageBean.searchData.message}"/>
+        			<p:inputText id="gameId" type="hidden" value="#{gameIdBean.gameId}" />
+	  			</p:column>
+	  		</p:row>
+	  		<p:row styleClass="center">
+	  			<p:column styleClass="right">
+	  				<p:outputLabel value="#{langLabelBean.getLabel('round')}" for="round" styleClass="font"/>
+	  			</p:column>
+		  		<p:column colspan="2">
+			  		<p:selectOneMenu id="round" value="#{gameMasterManageBean.searchData.round}">
+			  			<f:selectItem itemLabel="#{langLabelBean.getLabel('all_round')}" itemValue="" />
+			  			<f:selectItem itemLabel="1#{langLabelBean.getLabel('number_of_round')}" itemValue="1" />
+			  			<f:selectItem itemLabel="2#{langLabelBean.getLabel('number_of_round')}" itemValue="2" />
+			  			<f:selectItem itemLabel="3#{langLabelBean.getLabel('number_of_round')}" itemValue="3" />
+			  			<f:selectItem itemLabel="4#{langLabelBean.getLabel('number_of_round')}" itemValue="4" />
+			  			<f:selectItem itemLabel="5#{langLabelBean.getLabel('number_of_round')}" itemValue="5" />
+			  			<f:selectItem itemLabel="6#{langLabelBean.getLabel('number_of_round')}" itemValue="6" />
+			  			<f:selectItem itemLabel="7#{langLabelBean.getLabel('number_of_round')}" itemValue="7" />
+			  			<f:selectItem itemLabel="8#{langLabelBean.getLabel('number_of_round')}" itemValue="8" />
+			  			<f:selectItem itemLabel="9#{langLabelBean.getLabel('number_of_round')}" itemValue="9" />
+			  			<f:selectItem itemLabel="10#{langLabelBean.getLabel('number_of_round')}" itemValue="10" />
+			  		</p:selectOneMenu>
+		  		</p:column>
+	  		</p:row>
+	  		<p:row styleClass="center">
+		  		<p:column colspan="3">
+	  				<p:commandButton value="#{langLabelBean.getLabel('search')}"  styleClass="buttonDefault font" update="messageList growl"
+		  				actionListener="#{gameMasterManageBean.search()}" process="searchTable"/>
+		  		</p:column>
+	  		</p:row>
+	  	</p:panelGrid>
+	 		<p:dataTable id="messageList" value="#{gameMasterManageBean.messageList}" var="row" paginator="true" paginatorPosition="bottom" rows="20"
+	  	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+	  	sortMode="multiple"  styleClass="font">
+		 		<f:facet name="{Exporters}">
+		            <p:commandButton value="Excel" icon="fa fa-file-excel-o" ajax="false" styleClass="font"
+		            disabled="#{empty gameMasterManageBean.messageList}">
+		                <p:dataExporter type="xls" target="messageList" fileName="#{langLabelBean.getLabel('user_list')}" />
+		            </p:commandButton>
+
+		            <p:commandButton value="PDF" icon="fa fa-file-pdf-o" ajax="false" styleClass="font"
+		            disabled="#{empty gameMasterManageBean.messageList}">
+		                <p:dataExporter type="pdf" target="messageList" fileName="#{langLabelBean.getLabel('user_list')}"/>
+		            </p:commandButton>
+
+		            <p:commandButton value="CSV" icon="fa fa-file-text-o" ajax="false" styleClass="font"
+		            disabled="#{empty gameMasterManageBean.messageList}">
+		                <p:dataExporter type="csv" target="messageList" fileName="#{langLabelBean.getLabel('user_list')}"/>
+		            </p:commandButton>
+
+		            <p:commandButton value="XML" icon="fa fa-file-code-o" ajax="false" styleClass="font"
+		            disabled="#{empty gameMasterManageBean.messageList}">
+		                <p:dataExporter type="xml" target="messageList" fileName="#{langLabelBean.getLabel('user_list')}"/>
+		            </p:commandButton>
+		        </f:facet>
+	            <p:column headerText="#{langLabelBean.getLabel('speak_time')}" sortBy="#{row.speakDate}">
+	            	<h:outputText value="#{row.speakDate}"/>
+	            </p:column>
+		 		<p:column headerText="#{langLabelBean.getLabel('user_name')}" sortBy="#{row.userName}">
+	            	<h:outputText value="#{row.userName}"/>
+	            </p:column>
+	            <p:column headerText="#{langLabelBean.getLabel('message')}" sortBy="#{row.message}">
+	            	<h:outputText value="#{row.message}"/>
+	            </p:column>
+	            <p:column headerText="#{langLabelBean.getLabel('round')}" sortBy="#{row.round}">
+	            	<h:outputText value="#{row.round}"/>
+	            </p:column>
+	         </p:dataTable>
+	       </p:tab>
+
+
+	       <p:tab title="#{langLabelBean.getLabel('vote')}">
+			<p:growl id="growl2"/>
+		  	<p:panelGrid id="searchTable2">
+		  		<p:row styleClass="center">
+		  			<p:column styleClass="right">
+		  				<p:outputLabel value="#{langLabelBean.getLabel('user_name')}" for="userList2" styleClass="font"/>
+		  			</p:column>
+		  			<p:column styleClass="left" colspan="2">
+				  		<p:selectOneMenu id="userList2" value="#{gameMasterManageBean.voteData.userId}">
+				  			<f:selectItem itemLabel="#{langLabelBean.getLabel('all_user')}" itemValue="" />
+				  			<f:selectItems value="#{gameMasterManageBean.userList}"/>
+				  		</p:selectOneMenu>
+		  			</p:column>
+		  		</p:row>
+		  		<p:row styleClass="center">
+		  			<p:column styleClass="right">
+		  				<p:outputLabel value="#{langLabelBean.getLabel('speak_time')}"  styleClass="font"/>
+		  			</p:column>
+		  			<p:column colspan="2" styleClass="left">
+		  				<p:calendar id="startTime" value="#{gameMasterManageBean.voteData.startDate}" label="from"
+	  						pattern="MM/dd/yyyy HH:mm" stepMinute="5"/>
+						<p:watermark for="startTime" value="#{langLabelBean.getLabel('from')}" />
+		  			</p:column>
+		  		</p:row>
+		  		<p:row styleClass="center">
+		  			<p:column/>
+		  			<p:column colspan="2" styleClass="left">
+		  				<p:calendar id="endTime" value="#{gameMasterManageBean.voteData.endDate}" label="to"
+	  						pattern="MM/dd/yyyy HH:mm" stepMinute="5"/>
+						<p:watermark for="endTime" value="#{langLabelBean.getLabel('to')}" />
+		  			</p:column>
+		  		</p:row>
+		  		<p:row styleClass="center">
+		  			<p:column styleClass="right">
+		  				<p:outputLabel value="#{langLabelBean.getLabel('round')}" for="round2" styleClass="font"/>
+		  			</p:column>
+			  		<p:column colspan="2">
+				  		<p:selectOneMenu id="round2" value="#{gameMasterManageBean.voteData.round}">
+				  			<f:selectItem itemLabel="#{langLabelBean.getLabel('all_round')}" itemValue="" />
+				  			<f:selectItem itemLabel="1#{langLabelBean.getLabel('number_of_round')}" itemValue="1" />
+				  			<f:selectItem itemLabel="2#{langLabelBean.getLabel('number_of_round')}" itemValue="2" />
+				  			<f:selectItem itemLabel="3#{langLabelBean.getLabel('number_of_round')}" itemValue="3" />
+				  			<f:selectItem itemLabel="4#{langLabelBean.getLabel('number_of_round')}" itemValue="4" />
+				  			<f:selectItem itemLabel="5#{langLabelBean.getLabel('number_of_round')}" itemValue="5" />
+				  			<f:selectItem itemLabel="6#{langLabelBean.getLabel('number_of_round')}" itemValue="6" />
+				  			<f:selectItem itemLabel="7#{langLabelBean.getLabel('number_of_round')}" itemValue="7" />
+				  			<f:selectItem itemLabel="8#{langLabelBean.getLabel('number_of_round')}" itemValue="8" />
+				  			<f:selectItem itemLabel="9#{langLabelBean.getLabel('number_of_round')}" itemValue="9" />
+				  			<f:selectItem itemLabel="10#{langLabelBean.getLabel('number_of_round')}" itemValue="10" />
+				  		</p:selectOneMenu>
+			  		</p:column>
+		  		</p:row>
+		  		<p:row styleClass="center">
+			  		<p:column colspan="3">
+		  				<p:commandButton value="#{langLabelBean.getLabel('vote_search')}"
+		  				 styleClass="buttonDefault font" update="voteList growl2"
+			  				actionListener="#{gameMasterManageBean.search2()}" process="searchTable2"/>
+        			<p:inputText id="gameId2" type="hidden" value="#{gameIdBean.gameId}" />
+			  		</p:column>
+		  		</p:row>
+		  	</p:panelGrid>
+		 		<p:dataTable id="voteList" value="#{gameMasterManageBean.voteList}" var="row" paginator="true" paginatorPosition="bottom" rows="20"
+		  	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+		  	sortMode="multiple"  styleClass="font">
+			 		<f:facet name="{Exporters}">
+			            <p:commandButton value="Excel" icon="fa fa-file-excel-o" ajax="false" styleClass="font"
+			            disabled="#{empty gameMasterManageBean.voteList}">
+			                <p:dataExporter type="xls" target="voteList" fileName="#{langLabelBean.getLabel('vote_list')}" />
+			            </p:commandButton>
+
+			            <p:commandButton value="PDF" icon="fa fa-file-pdf-o" ajax="false" styleClass="font"
+			            disabled="#{empty gameMasterManageBean.voteList}">
+			                <p:dataExporter type="pdf" target="voteList" fileName="#{langLabelBean.getLabel('vote_list')}"/>
+			            </p:commandButton>
+
+			            <p:commandButton value="CSV" icon="fa fa-file-text-o" ajax="false" styleClass="font"
+			            disabled="#{empty gameMasterManageBean.voteList}">
+			                <p:dataExporter type="csv" target="voteList" fileName="#{langLabelBean.getLabel('vote_list')}"/>
+			            </p:commandButton>
+
+			            <p:commandButton value="XML" icon="fa fa-file-code-o" ajax="false" styleClass="font"
+			            disabled="#{empty gameMasterManageBean.voteList}">
+			                <p:dataExporter type="xml" target="voteList" fileName="#{langLabelBean.getLabel('vote_list')}"/>
+			            </p:commandButton>
+			        </f:facet>
+		            <p:column headerText="#{langLabelBean.getLabel('user_name')}" sortBy="#{row.userName}">
+		            	<h:outputText value="#{row.userName}"/>
+		            </p:column>
+			 		<p:column headerText="#{langLabelBean.getLabel('vote_detail')}" sortBy="#{row.message}">
+		            	<h:outputText value="#{row.message}"/>
+		            </p:column>
+		            <p:column headerText="#{langLabelBean.getLabel('time')}" sortBy="#{row.voteDate}">
+		            	<h:outputText value="#{row.voteDate}"/>
+		            </p:column>
+		            <p:column headerText="#{langLabelBean.getLabel('round')}" sortBy="#{row.round}">
+		            	<h:outputText value="#{row.round}"/>
+		            </p:column>
+		         </p:dataTable>
+		     </p:tab>
+		     
+		     
+		    <p:tab title="#{langLabelBean.getLabel('question')}">
+			<p:growl id="growl3"/>
+		 		<p:dataTable id="questionList" value="#{gameMasterManageBean.questionList}" var="row" paginator="true" 
+		 		paginatorPosition="bottom" rows="20"
+		  	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+		  	sortMode="multiple"  styleClass="font" resizableColumns="true">
+		  			<h:inputHidden value="#{row.id}" />
+		            <p:column headerText="#{langLabelBean.getLabel('time')}" sortBy="#{row.questionDate}">
+		            	<h:outputText value="#{row.questionDate}"/>
+		            </p:column>
+		            <p:column headerText="#{langLabelBean.getLabel('user_name')}" sortBy="#{row.userName}">
+		            	<h:outputText value="#{row.userName}"/>
+		            </p:column>
+			 		<p:column headerText="#{langLabelBean.getLabel('question_detail')}" sortBy="#{row.question}" colspan="3">
+		            	<h:outputText value="#{row.question}"/>
+		            </p:column>
+		            <p:column headerText="#{langLabelBean.getLabel('yesNo')}" sortBy="#{row.yesNo}">
+						<p:selectOneMenu value="#{row.yesNo}">
+							<f:selectItem itemLabel="yes" itemValue="yes" />
+							<f:selectItem itemLabel="no" itemValue="no" />
+							<f:selectItem itemLabel="unrelated" itemValue="unrelated" />
+							<f:selectItem itemLabel="can not answer"
+								itemValue="can not answer" />
+							<p:ajax event="itemSelect" listener="#{gameMasterManageBean.updateYesNo(row.id,row.yesNo)}"
+								process="questionList" update="questionList" />
+						</p:selectOneMenu>
+					</p:column>
+		         </p:dataTable>
+		     </p:tab>
+		     </p:tabView>
+	  	   <p:inputText id="gameId" type="hidden" value="#{gameIdBean.gameId}" />
+</h:form>
+<h:form>
+    <h:commandScript name="updateGame" action="#{gameMasterManageBean.init()}" render="form:tabPanel:questionList form:tabPanel:voteList"/>
+</h:form>
+</h:body>
+</html>

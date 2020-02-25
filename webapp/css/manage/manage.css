@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+.label{
+	width:35%;
+}
+.inputArea {
+	width:85%;
+}
+
+body {
+	/* background-color: #363a27; */
+	background-image: url(../../image/liar/explainGame.jpg);
+}

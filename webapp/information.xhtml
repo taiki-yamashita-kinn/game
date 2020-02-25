@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+  <title>#{langLabelBean.getLabel('info')}</title>
+   <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" type="text/css" href="./css/common.css" />
+  <link rel="stylesheet" type="text/css" href="./css/information.css" />
+	<link rel="icon" href="ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+	<script defer="defer" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3832194717486071",
+    enable_page_level_ads: true
+  });
+</script>
+  </h:head>
+  <h:body>
+	<ui:include src="template/header.xhtml" />
+  <h:form>
+	<p:growl id="growl" showDetail="true"/>
+  	<p:dataGrid id="infoTable" var="info" value="#{informationBean.informationMessageList}" style="width:100%;" rows="10"
+       paginator="true" rowsPerPageTemplate="20,50,100"  columns="1" layout="grid"
+       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+		<f:facet name="header">
+            #{langLabelBean.getLabel('info')}
+        </f:facet>
+	    <p:panel style="text-align:center" >
+            <p:panelGrid style="width:100%">
+            	<p:row>
+		            <p:column colspan="2">
+				        <p:link outcome="#{info.url}" value="#{info.text}" target="_blank"/>
+				    </p:column>
+			    </p:row>
+            </p:panelGrid>
+        </p:panel>
+	</p:dataGrid>
+  </h:form>
+  </h:body>
+</html>

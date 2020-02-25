@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+  <title>#{langLabelBean.getLabel('update_game_screen')}</title>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" type="text/css" href="../css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../css/liar/editGame.css" />
+	<link rel="icon" href="../ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+  </h:head>
+  <h:body>
+  <h:form id="form">
+	<p:messages id="messages" closable="true" />
+  	<table>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight"> 
+	  			<p:outputLabel for="gameName" value="#{langLabelBean.getLabel('game_name')}"
+	  			 styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+	  			<p:inputText id="gameName" value="#{editLiarGameBean.game.gameName}"
+	  			maxlength="20" style="width:75%;" label="#{langLabelBean.getLabel('game_name')}"/>
+				<p:watermark for="gameName" value="20#{langLabelBean.getLabel('by_input_little')}" />
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="startTime" value="#{langLabelBean.getLabel('start_time')}"
+	  			 styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+	  			<p:calendar id="startTime" value="#{editLiarGameBean.game.startTime}"
+	  			 label="#{langLabelBean.getLabel('start_time')}" 
+	  			pattern="MM/dd/yyyy HH:mm" stepMinute="5">
+		  		</p:calendar>
+				<p:watermark for="startTime" value="#{langLabelBean.getLabel('able_choose')}" />
+	  		</td>
+	  	</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="endTime" value="#{langLabelBean.getLabel('end_time')}"
+	  			 styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+	  			<p:calendar id="endTime" value="#{editLiarGameBean.game.endTime}"
+	  			 label="#{langLabelBean.getLabel('end_time')}" pattern="MM/dd/yyyy HH:mm" stepMinute="5">
+		  		</p:calendar>
+				<p:watermark for="endTime" value="#{langLabelBean.getLabel('able_choose')}" />
+	  		</td>
+	  	</tr>
+	  	<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="countPeople" value="#{langLabelBean.getLabel('how_many_people')}"
+	  			 styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<p:selectOneMenu id="countPeople" value="#{editLiarGameBean.game.peopleCount}"
+		  		 label="#{langLabelBean.getLabel('how_many_people')}" required="true">
+		  			<f:selectItem itemLabel="2#{langLabelBean.getLabel('person')}" itemValue="2" />
+		  			<f:selectItem itemLabel="3#{langLabelBean.getLabel('person')}" itemValue="3" />
+		  			<f:selectItem itemLabel="4#{langLabelBean.getLabel('person')}" itemValue="4" />
+		  			<f:selectItem itemLabel="5#{langLabelBean.getLabel('person')}" itemValue="5" />
+		  			<f:selectItem itemLabel="6#{langLabelBean.getLabel('person')}" itemValue="6" />
+		  			<f:selectItem itemLabel="7#{langLabelBean.getLabel('person')}" itemValue="7" />
+		  			<f:selectItem itemLabel="8#{langLabelBean.getLabel('person')}" itemValue="8" />
+		  			<f:selectItem itemLabel="9#{langLabelBean.getLabel('person')}" itemValue="9" />
+		  			<f:selectItem itemLabel="10#{langLabelBean.getLabel('person')}" itemValue="10" />
+		  			<f:selectItem itemLabel="11#{langLabelBean.getLabel('person')}" itemValue="11" />
+		  			<f:selectItem itemLabel="12#{langLabelBean.getLabel('person')}" itemValue="12" />
+		  			<f:selectItem itemLabel="13#{langLabelBean.getLabel('person')}" itemValue="13" />
+		  			<f:selectItem itemLabel="14#{langLabelBean.getLabel('person')}" itemValue="14" />
+		  			<f:selectItem itemLabel="15#{langLabelBean.getLabel('person')}" itemValue="15" />
+		  			<f:selectItem itemLabel="16#{langLabelBean.getLabel('person')}" itemValue="16" />
+		  			<f:selectItem itemLabel="17#{langLabelBean.getLabel('person')}" itemValue="17" />
+		  		</p:selectOneMenu>
+	  		</td>
+	  	</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="oneDaySessionTimes" value="#{langLabelBean.getLabel('round')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<p:selectOneMenu id="oneDaySessionTimes" value="#{editLiarGameBean.game.oneDaySessionTimes}"
+		  		 label="#{langLabelBean.getLabel('round')}" required="true">
+		  			<f:selectItem itemLabel="#{langLabelBean.getLabel('no')}" itemValue="0" />
+		  			<f:selectItem itemLabel="#{langLabelBean.getLabel('yes')}" itemValue="1" />
+		  			<p:ajax event="itemSelect" update="banSpeakMinute separateTimes" 
+		  			process="oneDaySessionTimes"/>
+		  		</p:selectOneMenu>
+	  		</td>
+	  	</tr>
+	  	<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="banSpeakMinute" value="#{langLabelBean.getLabel('ban_speak_minutes')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<p:selectOneMenu id="banSpeakMinute" value="#{editLiarGameBean.game.banSpeakMinutes}" label="発言禁止時間"
+		  		disabled="#{editLiarGameBean.game.oneDaySessionTimes == '0'}">
+		  			<f:selectItem itemLabel="5#{langLabelBean.getLabel('minutes')}" itemValue="5" />
+		  			<f:selectItem itemLabel="10#{langLabelBean.getLabel('minutes')}" itemValue="10" />
+		  			<f:selectItem itemLabel="20#{langLabelBean.getLabel('minutes')}" itemValue="20" />
+		  			<f:selectItem itemLabel="30#{langLabelBean.getLabel('minutes')}" itemValue="30" />
+		  		</p:selectOneMenu>
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="separateTimes" value="#{langLabelBean.getLabel('one_round_minutes')}"
+	  			 styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<p:selectOneMenu id="separateTimes" value="#{editLiarGameBean.game.separateTime}"
+		  		 label="#{langLabelBean.getLabel('one_round_minutes')}"
+		  		 required="true" disabled="#{editLiarGameBean.game.oneDaySessionTimes == '0'}">
+		  			<f:selectItem itemLabel="24#{langLabelBean.getLabel('hours')}" itemValue="1440" />
+		  			<f:selectItem itemLabel="12#{langLabelBean.getLabel('hours')}" itemValue="720" />
+		  			<f:selectItem itemLabel="4#{langLabelBean.getLabel('hours')}" itemValue="240" />
+		  			<f:selectItem itemLabel="3#{langLabelBean.getLabel('hours')}" itemValue="180" />
+		  			<f:selectItem itemLabel="2#{langLabelBean.getLabel('hours')}" itemValue="120" />
+		  			<f:selectItem itemLabel="1#{langLabelBean.getLabel('hours')}" itemValue="60" />
+		  			<f:selectItem itemLabel="30#{langLabelBean.getLabel('minutes')}" itemValue="30" />
+		  			<f:selectItem itemLabel="20#{langLabelBean.getLabel('minutes')}" itemValue="20" />
+		  			<f:selectItem itemLabel="15#{langLabelBean.getLabel('minutes')}" itemValue="15" />
+		  		</p:selectOneMenu>
+	  		</td>
+	  	</tr>
+	  	<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="level" value="#{langLabelBean.getLabel('level')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<p:selectOneMenu id="level" value="#{editLiarGameBean.game.level}"
+		  		 required="true" label="#{langLabelBean.getLabel('level')}">
+		  			<f:selectItem itemLabel="#{langLabelBean.getLabel('beginner')}"
+		  			 itemValue="#{langLabelBean.getLabel('beginner')}" />
+		  			<f:selectItem itemLabel="#{langLabelBean.getLabel('much_easy')}"
+		  			 itemValue="#{langLabelBean.getLabel('much_easy')}" />
+		  			<f:selectItem itemLabel="#{langLabelBean.getLabel('easy')}"
+		  			 itemValue="#{langLabelBean.getLabel('easy')}" />
+		  			<f:selectItem itemLabel="#{langLabelBean.getLabel('normal')}"
+		  			 itemValue="#{langLabelBean.getLabel('normal')}" />
+		  			<f:selectItem itemLabel="#{langLabelBean.getLabel('difficult')}"
+		  			 itemValue="#{langLabelBean.getLabel('difficult')}" />
+		  			<f:selectItem itemLabel="#{langLabelBean.getLabel('hard')}"
+		  			 itemValue="#{langLabelBean.getLabel('hard')}" />
+		  		</p:selectOneMenu>
+	  		</td>
+	  	</tr>
+	  	<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="evaluation" value="#{langLabelBean.getLabel('evaluation')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<p:selectOneMenu id="evaluation" value="#{editLiarGameBean.game.evaluation}"
+		  		 required="true" label="#{langLabelBean.getLabel('evaluation')}">
+		  			<f:selectItem itemLabel="0" itemValue="0" />
+		  			<f:selectItem itemLabel="5" itemValue="5" />
+		  			<f:selectItem itemLabel="10" itemValue="10" />
+		  			<f:selectItem itemLabel="50" itemValue="50" />
+		  			<f:selectItem itemLabel="100" itemValue="100" />
+		  			<f:selectItem itemLabel="200" itemValue="200" />
+		  			<f:selectItem itemLabel="500" itemValue="500" />
+		  		</p:selectOneMenu>
+	  		</td>
+	  	</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="explanation" value="#{langLabelBean.getLabel('game_description')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+	  			<p:inputTextarea id="explanation" value="#{editLiarGameBean.game.explanation}"
+	  			maxlength="500" style="width:90%;height:500px!important;" label="#{langLabelBean.getLabel('game_description')}" />
+				<p:watermark for="explanation" value="500#{langLabelBean.getLabel('by_input_little')}" />
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight">
+	  			<p:outputLabel for="gameOpen" value="#{langLabelBean.getLabel('game_open_flag')}" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<p:selectOneRadio id="gameOpen" label="#{langLabelBean.getLabel('game_open_flag')}"
+		  		 value="#{editLiarGameBean.game.gameOpen}"  styleClass="fontWhite">
+		            <f:selectItem itemLabel="#{langLabelBean.getLabel('game_open')}" itemValue="1" styleClass="fontWhite"/>
+		            <f:selectItem itemLabel="#{langLabelBean.getLabel('game_close')}" itemValue="0" styleClass="fontWhite"/>
+		  		</p:selectOneRadio>
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2" class="paddingRight"> 
+	  			<p:outputLabel value="#{langLabelBean.getLabel('attach_url')}URL" styleClass="fontWhite"/>
+	  		</td>
+	  		<td colspan="2" class="paddingLeft">
+		  		<table>
+			  		<tr>
+			  			<td>
+						<p:commandLink id="document" title="#{editLiarGameBean.game.documentUrl}"
+						 target="_blank" style="display:block;width:fit-content;" onclick="PF('dlg1').show();" type="button" >
+							<p:graphicImage url="../ico/google_doc.ico" width="40" height="40" />
+						</p:commandLink>
+						<p:dialog id="dlg1" header="document URL" widgetVar="dlg1" minHeight="40">
+						    <p:inputText id="documentUrl" value="#{editLiarGameBean.game.documentUrl}"
+		  			maxlength="200" style="width:75%;" label="#{langLabelBean.getLabel('attach_url')}"/>
+							<p:commandButton value="#{langLabelBean.getLabel('attach_url')}" process="documentUrl"
+							onclick="PF('dlg1').hide();" update="document" />
+						</p:dialog>
+						</td>
+						<td>
+						<p:commandLink id="presentation" title="#{editLiarGameBean.game.presentationUrl}"
+						 target="_blank" style="display:block;width:fit-content;" onclick="PF('dlg2').show();" type="button">
+							<p:graphicImage url="../ico/google_slide.ico" width="40" height="40" />
+						</p:commandLink>
+						<p:dialog id="dlg2" header="presentation URL" widgetVar="dlg2" minHeight="40">
+						    <p:inputText id="presentationUrl" value="#{editLiarGameBean.game.presentationUrl}"
+		  			maxlength="200" style="width:75%;" label="#{langLabelBean.getLabel('attach_url')}"/>
+							<p:commandButton value="#{langLabelBean.getLabel('attach_url')}" process="presentationUrl"
+							onclick="PF('dlg2').hide();" update="presentation"/>
+						</p:dialog>
+						</td>
+						<td>
+						<p:commandLink id="spread" title="#{editLiarGameBean.game.spreadUrl}"
+						 target="_blank" style="display:block;width:fit-content;" onclick="PF('dlg3').show();" type="button" >
+							<p:graphicImage url="../ico/google_spread.ico" width="40" height="40" />
+						</p:commandLink>
+						<p:dialog id="dlg3" header="spreadsheet URL" widgetVar="dlg3" minHeight="40">
+						    <p:inputText id="spreadUrl" value="#{editLiarGameBean.game.spreadUrl}"
+		  			maxlength="200" style="width:75%;" label="#{langLabelBean.getLabel('attach_url')}"/>
+							<p:commandButton value="#{langLabelBean.getLabel('attach_url')}" process="spreadUrl"
+							onclick="PF('dlg3').hide();" update="spread" />
+						</p:dialog>
+						</td>
+						<td colspan="8"></td>
+					</tr>
+				</table>
+	  		</td>
+  		</tr>
+  		<tr class="center">
+	  		<td colspan="2">
+  				<p:commandButton value="#{langLabelBean.getLabel('update')}" styleClass="buttonDefault" process="form" id="update"
+	  				actionListener="#{editLiarGameBean.updateGame}" update="form" disabled="#{editLiarGameBean.timeFlag}"/>
+	  		</td>
+	  		<td colspan="2">
+				<p:commandButton value="#{langLabelBean.getLabel('game_top')}"  styleClass="buttonDefault"
+						actionListener="#{loginBean.backTop()}" process="@this"/>
+	  		</td>
+	  	</tr>
+  	</table>
+	  	<p:blockUI block="form" trigger="update" />
+  	</h:form>
+  </h:body>
+</html>

@@ -1,0 +1,401 @@
+@charset "utf-8";
+body {
+	height: 100%;
+	width: 100%;
+}
+.ui-inputfield {
+    width: -webkit-fill-available!important;
+}
+.center {
+	text-align:center;
+}
+.right {
+	text-align: right;
+}
+.left {
+	text-align: left;
+}
+.ui-outputlabel-rfi {
+	color: red;
+}
+
+table {
+	width:100%;
+	table-layout:fixed;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+	border-style: none;
+}
+.jinnrouLite {
+    background: url(../ico/jinnrouLite.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.discord {
+    background: url(../ico/discord.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.login {
+    background: url(../ico/login.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.edit {
+    background: url(../ico/edit.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.home {
+    background: url(../ico/home.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.logout {
+    background: url(../ico/logout.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.search {
+    background: url(../ico/search.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.signup {
+    background: url(../ico/signup.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.tableau {
+    background: url(../ico/tableau.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.userlist {
+    background: url(../ico/userlist.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.top {
+    background: url(../ico/top.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.menu {
+    background: url(../ico/menu.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.game {
+    background: url(../ico/game.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.game1 {
+    background: url(../ico/game1.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.win {
+    background: url(../ico/win.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.tranpu {
+    background: url(../ico/tranpu.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.joker {
+    background: url(../ico/joker.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.vote {
+    background: url(../ico/vote.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.googleCalendar {
+    background: url(../ico/googleCalendar.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.google_drive {
+    background: url(../ico/google_drive.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.google_form {
+    background: url(../ico/google_form.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.google {
+    background: url(../ico/google.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.google_slide {
+    background: url(../ico/google_slide.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.google_spread {
+    background: url(../ico/google_spread.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.google_spread {
+    background: url(../ico/google_spread.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.upload {
+    background: url(../ico/upload.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.add {
+    background: url(../ico/add.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.google_doc {
+    background: url(../ico/google_doc.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.inroom {
+    background: url(../ico/inroom.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.leave {
+    background: url(../ico/leave.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.message {
+    background: url(../ico/message.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.gmail {
+    background: url(../ico/gmail.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.setting {
+    background: url(../ico/setting.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.daice {
+    background: url(../ico/daice.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.help {
+    background: url(../ico/help.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.myuser {
+    background: url(../ico/myuser.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+.pengin {
+    background: url(../ico/pengin.ico) no-repeat !important;
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+
+.buttonArea {
+	width:450px;
+	height:100px;
+	display:inline-block;
+
+    font:normal normal 300 1.3em 'Open Sans';
+    text-decoration:none;
+
+    /* color:#c09853; */
+    background-color:transparent;
+    border:1px solid #bce8f1;
+    border-radius:100px;
+
+    padding: .3em 1.2em;
+    margin:5px;
+
+    background-size: 200% 100%;
+    /* background-image: linear-gradient(to right, transparent 100%, rgba(28, 190, 131, 1) 100%); */
+    transition: background-position .3s cubic-bezier(0.19, 1, 0.22, 1) .1s, color .5s ease 0s, background-color .5s ease;
+}
+
+.buttonDefault {
+	width:250px;
+	height:80px;
+	display:inline-block;
+
+    font:normal normal 300 1.3em 'Open Sans';
+    text-decoration:none;
+
+    /* color:#c09853; */
+    background-color:transparent;
+    border:1px solid #bce8f1;
+    border-radius:100px;
+
+    padding: .3em 1.2em;
+    margin:5px;
+
+    background-size: 200% 100%;
+    /* background-image: linear-gradient(to right, transparent 100%, rgba(28, 190, 131, 1) 100%); */
+    transition: background-position .3s cubic-bezier(0.19, 1, 0.22, 1) .1s, color .5s ease 0s, background-color .5s ease;
+}
+
+.title {
+	text-align:center;
+}
+.gameTitleFont {
+	font-size: 50px;
+	position: relative;
+	font-weight: 700;
+}
+
+/* .buttonArea:hover{
+    color:rgba(255, 255, 255, 1);
+    background-color:rgba(28, 190, 131, 1);
+    background-position: -100% 100%;
+} */
+
+.backColorBlack{
+	background-color:#000000;
+}
+
+.backColorBlue{
+	background-color:#0000ff;
+}
+.fontWhite{
+	color: white;
+	font-size: 20px;
+	font-weight: 200;
+}
+
+.fontAqua{
+	color:aqua;
+	font-size: 20px!important;
+	font-weight: 200;
+}
+.font{
+	font-size: 20px;
+	font-weight: 200;
+}
+
+.paddingRight {
+	padding-right:100px;
+	text-align: right;
+}
+
+.paddingLeft {
+	padding-right:100px;
+	text-align: left;
+}
+.space{
+ height:200px;
+ width:5px;
+}
+::-webkit-input-placeholder {
+	color: #eae6e7 !important;
+	font-weight: normal !important;
+}
+
+/** firefox **/
+:-moz-placeholder {
+	color: #eae6e7 !important;
+	font-weight: normal !important;
+}
+.ui-watermark {
+	color: #eae6e7!important;
+	font-weight: normal !important;
+}
+
+@media screen and (max-width:767px) {
+  body{
+  }
+/*   body::before {
+    background-image: url("../image/home.jpg");
+    background-size: cover;
+    display: block;
+    position: fixed;  ★スマホ用にコレで代替。
+    top: 0;
+    left: 0;
+    width: 100vw;  ★サイズ指定。
+    height: 100vh;  ★サイズ指定。
+    content: "\A";  ★大事
+    z-index: -1;  ★大事
+  } */
+
+.ui-outputlabel-rfi {
+	color: red;
+}
+
+  .buttonArea {
+  	width:auto;
+	height:100px;
+	}
+	.buttonDefault {
+  	width:auto;
+	height:50px;
+}
+	.space{
+	 height:130px;
+	 width:5px;
+	}
+	.ui-dialog {
+	width: inherit!important;
+	}
+	.gameTitleFont {
+	font-size: 30px;
+	position: relative;
+	font-weight: 700;
+}
+}

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+      	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  <title><h:outputText value="#{langLabelBean.getLabel('concert')}" /></title>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" type="text/css" href="../css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../css/liar/liarChat.css" />
+  <link rel="icon" href="../ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+  <h:outputScript library="primefaces" name="jquery/jquery.js"  />
+  <script src="../js/websocket.js"/>
+<script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script async="async" src="https://apis.google.com/js/platform.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9266770545412327",
+    enable_page_level_ads: true
+  });
+</script>
+  </h:head>
+  <h:body>
+  <div class="g-ytsubscribe" data-channelid="UCQb94DwNOEDb3I3fomPEXEQ" data-layout="full" data-theme="dark" data-count="default">
+</div>
+	<h:form id="form">
+		<p:growl id="growl" showDetail="false" sticky="true" />
+		<p:dialog id="postDialog" widgetVar="dlg" position="top" height="300px" width="500px" modal="true" draggable="false"
+		resizable="false">
+		  <p:panelGrid>
+		  	<p:row>
+		  		<p:column colspan="2">
+            		<p:inputTextarea id="inputMessage" required="true" placeholder="Shift+Enterで投稿できます"
+            		 onkeydown="if(event.shiftKey){if(event.keyCode === 13){sendMessage(); return false;}}"
+            		 style="width:98%;font-size:13px;" value="#{liarChatBean.message.message}" maxlength="100" />
+			 		 <p:remoteCommand id="remoteCommand" name="sendMessage" action="#{liarChatBean.sendText}" 
+			 		   oncomplete="PF('dlg').hide();"/>
+            	</p:column>
+          	</p:row>
+          	<p:row>
+	          	<p:column styleClass="center">
+	            	<p:commandButton value="#{langLabelBean.getLabel('post_do')}" id="post" action="#{liarChatBean.sendText}"
+	            	 oncomplete="PF('dlg').hide();">
+                		<f:ajax/>
+                	</p:commandButton>
+	            	 
+            	</p:column>
+            	<p:column styleClass="center">
+			    	<p:commandButton value="#{langLabelBean.getLabel('close')}" type="button"
+			    	  onclick="PF('dlg').hide();"/>
+		    	</p:column>
+          	</p:row>
+		  </p:panelGrid>
+		</p:dialog>
+	  	<p:panelGrid>
+		  	<p:column>
+		  		<p:commandButton id="openPost" value="#{langLabelBean.getLabel('post')}" icon="fa fa-comments" type="button" onclick="PF('dlg').show();"
+		  		disabled="#{liarChatBean.chatRoom.speakFlag == '1'}">
+				</p:commandButton>
+		  	</p:column>
+		  	<p:column>
+		  		<p:commandButton id="close" value="#{langLabelBean.getLabel('back')}" icon="fa fa-comments"
+		  		actionListener="#{liarChatBean.backGamePage()}" process="@this"/>
+		  	</p:column>
+		  	<p:column colspan="1"/>
+        </p:panelGrid>
+        <h:panelGroup id="chatList" layout="block">
+  		<p:dataScroller id="chatDataList" value="#{liarChatBean.messageList}" var="row" mode="inline" >
+	  		<p:outputPanel styleClass="#{row.styleClass}">
+	  				<h:graphicImage id="picture" value="#{(empty row.picturePath) ? '/media/image/women.png' : row.picturePath}" 
+	  				styleClass="image" />
+		            <h:outputText value="　#{row.userName}" />
+		  		<p:panel styleClass="circle">
+		           	<h:outputText value="#{row.message}" style="white-space: pre-line;" styleClass="left fontChat" />
+		        </p:panel>
+		            <h:outputText value="#{row.speakDate}" />
+		            <br/><br/>
+		    </p:outputPanel>
+         </p:dataScroller>
+         </h:panelGroup>
+
+           <p:inputText id="gameId" type="hidden" value="#{gameIdBean.gameId}" />
+           <p:inputText id="roomId" type="hidden" value="#{gameIdBean.roomId}" />
+	  </h:form>
+        <h:form>
+            <h:commandScript name="pushChat" action="#{liarChatBean.updateChat}" render="form:chatDataList form:openPost"/>
+        </h:form>
+        
+        <h:form>
+            <h:commandScript name="getChat" action="#{liarChatBean.getChat}" render="form:chatDataList form:openPost"/>
+        </h:form>
+        
+  </h:body>
+</html>

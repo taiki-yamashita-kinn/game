@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
+  <h:head>
+  <title><h:outputText value="投票場所" /></title>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../../css/liar/option/vote.css" />
+	<link rel="icon" href="../../ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+	<script defer="defer" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3832194717486071",
+    enable_page_level_ads: true
+  });
+</script>
+  </h:head>
+  <h:body>
+	<h:form id="form">
+		<p:growl id="growl" sticky="true" />
+		<p:inputText styleClass="inputArea" max="1000" step="50" value="#{voteBean.value}" required="true" requiredMessage="入力してください"/>
+        <p:inputText id="gameId" type="hidden" value="#{gameIdBean.gameId}" />
+		<p:commandButton value="投票" styleClass="buttonDefault" process="form" id="vote"
+			actionListener="#{voteBean.vote()}" update="form"
+			disabled="#{voteBean.game.speakFlag == '1' or loginInfo.gameId != voteBean.game.id}"/>
+			
+		<br/>
+  		<p:commandButton id="close" value="#{langLabelBean.getLabel('back')}" icon="fa fa-comments"
+  		actionListener="#{voteBean.backGamePage()}" process="@this"/>
+	  	<p:blockUI block="form" trigger="vote" />
+	  	<br/>
+	  	
+  		<p:dataTable id="chatTable" value="#{voteBean.voteList}" var="vote" >
+	  		<f:facet name="header">
+		        <h:outputText value="投票履歴" styleClass="font"/>
+		    </f:facet>
+		    <p:column headerText="投票内容">
+		        <h:outputText value="#{vote.vote}" styleClass="font"/>
+		    </p:column>
+		    <p:column headerText="投票時間">
+		        <h:outputText value="#{vote.voteDate}" styleClass="font"/>
+		    </p:column>
+		    <p:column headerText="ラウンド">
+		        <h:outputText value="#{vote.round}" styleClass="font"/>
+		    </p:column>
+  		</p:dataTable>
+	  	
+	 </h:form>
+  </h:body>
+</html>

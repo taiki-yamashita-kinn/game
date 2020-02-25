@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.editLiarGame.mapper.EditLiarGameMapper">
+	<select id="selectLiarGame" parameterType="String" resultType="common.dto.LiarGameDto">
+	SELECT
+	liargame.id
+	, liargame.gameName
+	, liargame.userMasterId
+	, liargame.explanation
+	, gameurl.url
+	, liargame.startTime AS startTimeData
+	, liargame.endTime AS endTimeData
+	, liargame.peopleCount
+	, liargame.nowPeopleCount
+	, liargame.separateTime
+	, liargame.oneDaySessionTimes
+	, liargame.banMinutes AS banSpeakMinutes
+	, liargame.level
+	, liargame.evaluation
+	, liargame.accessCode
+	, liargame.gameOpen
+	FROM game.liargame left outer join game.gameurl
+	on
+	liargame.id = gameurl.gameId
+	WHERE
+	liargame.id = #{gameId}
+	AND liargame.isStop ='0'
+	</select>
+
+	<update id="updateLiarGame" parameterType="java.util.Map">
+	UPDATE game.liargame
+	SET
+	<trim prefixOverrides=",">
+		<if test="gameName != null and gameName != ''">
+		gameName = #{gameName}
+		</if>
+		<if test="userMasterId != null and userMasterId != ''">
+		, userMasterId = #{userMasterId}
+		</if>
+		<if test="explanation != null and explanation != ''">
+		, explanation = #{explanation}
+		</if>
+		<if test="startTime != null and startTime != ''">
+		, startTime = #{startTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+		, endTime = #{endTime}
+		</if>
+		<if test="peopleCount != null and peopleCount != ''">
+		, peopleCount = #{peopleCount}
+		</if>
+		<if test="separateTime != null and separateTime != ''">
+		, separateTime = #{separateTime}
+		</if>
+		<if test="oneDaySessionTimes != null and oneDaySessionTimes != ''">
+		, oneDaySessionTimes = #{oneDaySessionTimes}
+		</if>
+		<if test="banMinutes != null and banMinutes != ''">
+		, banMinutes = #{banMinutes}
+		</if>
+		<if test="level != null and level != ''">
+		, level = #{level}
+		</if>
+		<if test="evaluation != null and evaluation != ''">
+		, evaluation = #{evaluation}
+		</if>
+		<if test="accessCode != null and accessCode != ''">
+		, accessCode = #{accessCode}
+		</if>
+		<if test="gameOpen != null and gameOpen != ''">
+		, gameOpen = #{gameOpen}
+		</if>
+		WHERE liargame.id = #{gameId};
+	</trim>
+	</update>
+
+	<update id="updateGameUrl" parameterType="String">
+	UPDATE game.googleid
+	SET
+	presentationId = #{presentationId}
+	, spreadsheetsId = #{spreadId}
+	, documentId = #{documentId}
+	WHERE gameId = #{gameId};
+
+	</update>
+
+</mapper>

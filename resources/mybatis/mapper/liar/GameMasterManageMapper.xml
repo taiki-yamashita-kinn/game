@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.gameMasterManage.mapper.GameMasterManageMapper">
+
+	<select id="selectUserList" parameterType="String" resultType="javax.faces.model.SelectItem">
+	SELECT
+    user.id AS value,
+    user.userName AS label
+	FROM user
+	WHERE
+	user.gameId = #{gameId}
+	</select>
+
+	<select id="selectMessageList" parameterType="java.util.Map" resultType="liar.gameMasterManage.dto.GameMasterManageDto">
+	SELECT
+    user.id AS userId,
+    message.roomId AS roomId,
+    user.gameId AS gameId,
+	message.message AS message,
+    message.speakDate AS speakDate,
+    user.userName AS userName,
+    message.round AS round
+	FROM message, user
+	WHERE
+	user.id = message.userId
+	AND user.gameId = message.gameId
+	<if test="userId != null and userId != '' ">
+	AND user.id = #{userId}
+	</if>
+	<if test="gameId != null and gameId != '' ">
+	AND message.gameId = #{gameId}
+	</if>
+	<!-- 部分一致 -->
+	<if test="message != null and message != ''">
+	AND message.message LIKE '%#{message}%'
+	</if>
+	<!-- ラウンド -->
+	<if test="round != null and round != '' ">
+	AND message.round = #{round}
+	</if>
+	ORDER BY speakDate DESC
+	</select>
+
+
+	<select id="selectVoteList" parameterType="java.util.Map" resultType="liar.gameMasterManage.dto.VoteDto">
+	SELECT vote.userId,
+		user.userName,
+	    vote.gameId,
+	    vote.vote AS message,
+	    vote.voteDate,
+    	vote.round AS round
+	FROM game.vote, game.user
+	WHERE
+	vote.userId = user.id
+	AND vote.gameId = #{gameId}
+	<if test="userId != null and userId != ''">
+	AND vote.userId = #{userId}
+	</if>
+	<!-- 投票時間 -->
+	<if test="startDate != null or endDate != null">
+	AND vote.voteDate BETWEEN #{startDate} and #{endDate}
+	</if>
+	<!-- ラウンド -->
+	<if test="round != null and round != '' ">
+	AND vote.round = #{round}
+	</if>
+	ORDER BY voteDate DESC
+	</select>
+</mapper>

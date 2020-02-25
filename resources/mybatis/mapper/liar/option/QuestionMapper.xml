@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.option.question.mapper.QuestionMapper">
+
+	<insert id="insertQuestion" parameterType="String">
+		INSERT INTO game.question
+		(userId,
+		gameId,
+		question,
+		questionDate,
+		yesNo,
+		round)
+		VALUES
+		(#{userId},
+		#{gameId},
+		#{value},
+		SYSDATE(),
+		'',
+		(SELECT round FROM liargame WHERE liargame.id = #{gameId}));
+	</insert>
+	
+	<select id="selectQuestion" parameterType="String" resultType="liar.option.question.dto.QuestionDto">
+	SELECT
+		question.id,
+		user.userName,
+		question.gameId,
+		question.question,
+		question.questionDate,
+		question.yesNo,
+		question.round
+	FROM game.question,game.user
+	<trim prefix="WHERE" prefixOverrides="AND|OR">
+		user.id = question.userId
+		<if test="userId != null and userId != ''">
+		AND question.userId = #{userId}
+		</if>
+		<if test="gameId != null and gameId != ''">
+		AND question.gameId = #{gameId}
+		</if>
+	</trim>
+	</select>
+
+	<update id="updateQuestion" parameterType="String">
+	update game.question
+	set question.yesNo = #{value}
+	where question.id = #{id}
+	</update>
+
+</mapper>

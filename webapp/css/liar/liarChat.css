@@ -1,0 +1,88 @@
+@CHARSET "UTF-8";
+body {
+	background-image: url(../../image/liar/gamePage.jpg);
+}
+.chatCenter {
+width: 80%;
+    text-align: left;
+    margin: auto;
+}
+.chatRight {
+    width: 50%;
+    text-align: left;
+    margin-left: auto;
+    padding-right: 20px;
+}
+.chatLeft {
+    width: 50%;
+    text-align: left;
+    margin-right: auto;
+    padding-left: 20px;
+}
+.circle {
+	border-radius: 10px 15px 20px 5px / 10px 20px 10px 25px;
+	border: solid 1px;
+}
+
+.fontChat{
+	font-size:13px!important;
+	font-weight: 200;
+}
+
+.ui-panel .ui-panel-content {
+	padding:0.1em 0.1em;
+}
+.image {
+	width: 50px;
+	height: 50px;
+	vertical-align:bottom;
+    border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+}
+
+.ui-datalist .ui-datalist-nobullets{
+	padding: inherit;
+}
+@media screen and (max-width:767px) {
+  .buttonArea {
+  	width:auto;
+	height:100px;
+	}
+	.buttonDefault {
+  	width:auto;
+	height:50px;
+	}
+	.space{
+	 height:130px;
+	 width:5px;
+	}
+	.ui-dialog {
+	width: inherit!important;
+	}
+	.fontChat{
+		font-size: 12px!important;
+		font-weight: 200;
+	}
+	.paddingRight {
+		padding-right:inherit!important;
+		text-align: right;
+	}
+	.paddingLeft {
+		padding-right:inherit!important;
+		text-align: left;
+	}
+	.gameTitleFont {
+		font-size: 30px;
+		/* color: white; */
+		position: relative;
+		font-weight: 700;
+	}
+	.image {
+		width: 30px;
+		height: 30px;
+		vertical-align:bottom;
+	    border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+	}
+	.ui-panel .ui-panel-content {
+		padding:.0.1em 0.1em;
+	}
+}

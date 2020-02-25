@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+.inputArea {
+	width:85%;
+}
+.tableWidth {
+	width:100%;
+	margin:auto;
+}
+
+body{
+	background-image: url(../image/signup.jpg);
+ 	background-size: cover;
+}

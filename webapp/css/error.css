@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+h1 {
+	text-align: center;
+	color: red;
+}
+
+body {
+	background-image: url(../image/gambling.jpg);
+  	background-size: cover;
+}

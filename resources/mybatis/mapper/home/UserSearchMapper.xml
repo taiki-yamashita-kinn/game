@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="home.userSearch.mapper.UserSearchMapper">
+	<select id="searchUser" parameterType="java.util.Map" resultType="common.dto.UserDto">
+	SELECT
+		user.id AS userId,
+	    user.userName,
+	    user.twitterAccount,
+	    user.profile,
+	    user.creativeParameter,
+	    user.logicParameter,
+	    user.volunteerParameter,
+	    user.individualParameter,
+	    user.favoriteParameter,
+	    user.evaluation,
+	    user.battleCount
+    FROM game.user
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		user.isStop = '0'
+			<!-- 部分一致 -->
+			<if test="userName != null and userName != ''">
+			AND user.userName LIKE '%${userName}%'
+			</if>
+
+			<if test="twitterAccount != null and twitterAccount != ''">
+			AND user.twitterAccount LIKE '%${twitterAccount}%'
+			</if>
+
+			<if test="evaluationFrom != null and evaluationFrom != ''">
+			AND user.evaluation &gt;= #{evaluationFrom}
+			</if>
+
+			<if test="evaluationTo != null and evaluationTo != ''">
+			AND user.evaluation &lt;= #{evaluationTo}
+			</if>
+
+			<if test="battleCountFrom != null and battleCountFrom != ''">
+			AND user.battleCount &gt;= #{battleCountFrom}
+			</if>
+
+			<if test="battleCountTo != null and battleCountTo != ''">
+			AND user.battleCount &lt;= #{battleCountTo}
+			</if>
+		</trim>
+	</select>
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+  <title>#{langLabelBean.getLabel('game_list')}</title>
+	<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@OnlineLiar" />
+	<meta name="twitter:title" content="#{langLabelBean.getLabel('game_list')}" />
+	<meta name="twitter:description" content="#{langLabelBean.getLabel('game_list')}:このリンクからゲームを選択し、参加してください" />
+	<meta name="twitter:image" content="https://cdn.pixabay.com/photo/2015/01/18/13/34/gambling-602976__340.jpg" />
+	<meta name="google-site-verification" content="32LHWGuTw6kv0_ii8OhdRqAAaS34YUI7ut7VdNA3pkk" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/liarGameList.css" />
+  <link rel="icon" href="ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+	<script defer="defer" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script async="async" src="https://apis.google.com/js/platform.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3832194717486071",
+    enable_page_level_ads: true
+  });
+</script>
+  </h:head>
+  <h:body>
+	<ui:include src="template/header.xhtml" />
+
+
+  <h:form>
+	<p:growl id="growl" showDetail="true"/>
+	<p:panel styleClass="right">
+	<div class="g-ytsubscribe" data-channelid="UCQb94DwNOEDb3I3fomPEXEQ" data-layout="full" data-theme="dark" data-count="default"></div>
+		<p:outputLabel for="searchData" value="filter"/>
+		<p:inputText id="searchData" value="#{liarGameListBean.filterData}">
+			<p:ajax event="keyup" listener="#{liarGameListBean.gameFilter()}" update="gameTable" process="@this searchData" />
+		</p:inputText>
+	</p:panel>
+  	<p:dataGrid id="gameTable" var="game" value="#{liarGameListBean.gameList}" style="width:100%;" rows="10"
+       paginator="true" rowsPerPageTemplate="20,50,100"  columns="1" layout="grid"
+       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+	    <p:panel style="text-align:center" >
+            <p:panelGrid style="width:100%">
+            	<p:row>
+		            <p:column colspan="2">
+				        <p:link outcome="liar/explainLiarGame" value="#{game.gameName}" target="_blank">
+				        	<f:param name="gameId" value="#{game.id}"/>
+				        </p:link>
+				    </p:column>
+			    </p:row>
+			    <p:row>
+				    <p:column>
+			        	<h:outputText value="#{langLabelBean.getLabel('start_time')}" />
+				    </p:column>
+				    <p:column>
+			        	<h:outputText value="#{game.startTimeData}" />
+				    </p:column>
+			    </p:row>
+			    <p:row>
+				    <p:column>
+			        	<h:outputText value="#{langLabelBean.getLabel('end_time')}" />
+				    </p:column>
+				    <p:column>
+		        		<h:outputText value="#{game.endTimeData}"/>
+				    </p:column>
+			    </p:row>
+			    <p:row>
+				    <p:column>
+			        	<h:outputText value="#{langLabelBean.getLabel('join_how_many_people')}" />
+				    </p:column>
+				    <p:column>
+		        		<h:outputText value="#{game.peopleCount}"/>
+				    </p:column>
+			    </p:row>
+			    <p:row>
+				    <p:column>
+			        	<h:outputText value="#{langLabelBean.getLabel('join_how_many_people_now')}" />
+				    </p:column>
+				    <p:column>
+		        		<h:outputText value="#{game.nowPeopleCount}"/>
+				    </p:column>
+			    </p:row>
+			    <p:row>
+				    <p:column>
+			        	<h:outputText value="#{langLabelBean.getLabel('evaluation')}" />
+				    </p:column>
+				    <p:column>
+		        		<h:outputText value="#{game.evaluation}"/>
+				    </p:column>
+			    </p:row>
+            </p:panelGrid>
+        </p:panel>
+	</p:dataGrid>
+  	</h:form>
+  </h:body>
+</html>

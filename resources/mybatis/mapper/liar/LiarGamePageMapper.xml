@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.liarGamePage.mapper.LiarGamePageMapper">
+	<select id="selectGame" parameterType="String" resultType="common.dto.LiarGameDto">
+	SELECT
+	id,
+	gameName,
+	userMasterId,
+	speakFlag,
+	status
+	FROM game.liargame
+	WHERE liargame.id = #{gameId}
+	AND
+    1 &lt;= (select count(*) from game.joingame where joingame.gameId = #{gameId} and joingame.userId = #{userId}
+    OR liargame.gameOpen = '1' )
+	</select>
+	<select id="selectUserList" resultType="liar.liarUserList.dto.LiarUserListDto" parameterType="String">
+    SELECT
+    user.id AS userId
+    ,user.userName
+    ,user.imagePath as picturePath
+    FROM game.user, game.joingame
+    WHERE
+    joingame.gameId = #{gameId}
+    AND user.id = joingame.userId
+	</select>
+
+	<select id="selectChatUser" resultType="liar.liarGamePage.dto.LiarGamePageDto" parameterType="String">
+	SELECT
+	    chatroom_manage.id AS roomId
+	    ,user.id AS userId
+	    ,user.userName AS userName
+	    ,chatroom_manage.roomName AS roomName
+	FROM
+		game.join_chatroom
+		,game.chatroom_manage
+		,game.user
+	WHERE
+	    user.id = join_chatroom.userId
+	    AND user.isStop = '0'
+	    AND join_chatroom.roomId = chatroom_manage.id
+	    AND chatroom_manage.gameId = #{gameId}
+	    <if test="userId != null and userId != ''">
+	    AND join_chatroom.userId = #{userId}
+	    </if>
+	</select>
+
+	<insert id="insertStatus" parameterType="String">
+	INSERT INTO game.liargame
+    (gameId
+    ,userId
+    ,status
+    ,insertDate
+    ,updateDate
+    )
+  	 values (
+  	#{gameId}
+  	,#{userId}
+  	,#{status}
+  	,now()
+  	,now())
+	</insert>
+
+	<update id="leaveGame" parameterType="String">
+	UPDATE game.user set
+	user.gameId = '0'
+	,user.isGame = '0'
+	WHERE user.id = #{userId};
+	</update>
+
+	<update id="decreaseJoin" parameterType="String">
+	UPDATE game.liargame set
+	nowPeopleCount = nowPeopleCount - 1
+	WHERE liargame.id = #{gameId};
+	</update>
+
+	<delete id="deleteJoinGame" parameterType="String">
+	DELETE FROM game.joingame
+	WHERE joingame.userId = #{userId}
+	AND joingame.gameId = #{gameId}
+	</delete>
+</mapper>

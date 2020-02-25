@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+.label{
+	width:30%;
+}
+.inputArea {
+	width:85%;
+}
+
+body{
+	background-image: url(../image/edit.jpg);
+  	background-size: cover;
+}
+
+@media screen and (max-width:767px) {
+
+	.fontWhite{
+		color: white;
+		font-size: 17px;
+		font-weight: 200;
+	}
+	.paddingRight {
+		padding-right:inherit!important;
+		text-align: right;
+	}
+	.paddingLeft {
+		padding-right:inherit!important;
+		text-align: left;
+	}
+	.image {
+		width: 30px;
+		height: 30px;
+	}
+	.gameTitleFont {
+		font-size: 30px;
+		/* color: white; */
+		position: relative;
+		font-weight: 700;
+	}
+}

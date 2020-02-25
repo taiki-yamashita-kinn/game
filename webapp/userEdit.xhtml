@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+  <title>#{langLabelBean.getLabel('user_edit_screen')}</title>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/userEdit.css" />
+  <link rel="icon" href="ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+  </h:head>
+  <h:body>
+	<ui:include src="template/header.xhtml" />
+  	<h:form id="form" enctype="multipart/form-data">
+	 <p:messages id="message" closable="true" />
+	  	<table id="renew" class="tableWidth">
+	  		<tr class="center">
+		  		<td colspan="2">
+			  		<table>
+				  		<tr class="center">
+					  		<td class="right">
+					  			<p:outputLabel for="userName" value="#{langLabelBean.getLabel('user_name')}" styleClass="fontWhite"/>
+					  		</td>
+					  		<td class="left">
+					  			<p:inputText id="userName" styleClass="inputArea"
+					  			value="#{userEditBean.updateUser.userName}" label="#{langLabelBean.getLabel('user_name')}" maxlength="10"/>
+					  			<p:watermark for="userName" value="10#{langLabelBean.getLabel('by_input_little')}" />
+					  		</td>
+					  	</tr>
+			  		</table>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2">
+			  		<table>
+				  		<tr class="center">
+					  		<td class="right">
+					  			<p:outputLabel for="lang" value="#{langLabelBean.getLabel('lang')}" styleClass="fontWhite"/>
+	  							<h:outputText value="*" style="color:red" />
+					  		</td>
+					  		<td class="left">
+						  		<p:selectOneMenu id="lang" value="#{userEditBean.updateUser.userLanguage}"
+						  		 label="#{langLabelBean.getLabel('lang')}">
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('japanese')}" itemValue="0" />
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('english')}" itemValue="1" />
+						  		</p:selectOneMenu>
+					  		</td>
+					  	</tr>
+			  		</table>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2">
+			  		<table>
+				  		<tr class="center">
+					  		<td class="right">
+					  			<p:outputLabel for="twitter" value="#{langLabelBean.getLabel('twitter_account')}" styleClass="fontWhite"/>
+					  		</td>
+					  		<td class="left">
+					  			<p:inputText id="twitter" styleClass="inputArea" label="#{langLabelBean.getLabel('twitter_account')}"
+					  			 value="#{userEditBean.updateUser.twitterAccount}"/>
+					  			<p:watermark for="twitter" value="#{langLabelBean.getLabel('need_asterisk')}" />
+					  		</td>
+					  	</tr>
+			  		</table>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2">
+			  		<table>
+				  		<tr class="center">
+					  		<td class="right">
+					  			<p:outputLabel for="presentation" value="#{langLabelBean.getLabel('attach_url')}" styleClass="fontWhite"/>
+					  		</td>
+					  		<td class="left">
+								<p:commandLink id="presentation" title="#{userEditBean.updateUser.url}"
+								 target="_blank" style="display:block;width:fit-content;" onclick="PF('dlg2').show();" type="button">
+									<p:graphicImage url="../ico/google_slide.ico" stream="false" width="40" height="40" />
+								</p:commandLink>
+								<p:dialog id="dlg2" header="presentation URL" widgetVar="dlg2" minHeight="40">
+								    <p:inputText type="url" id="presentationUrl" value="#{userEditBean.updateUser.url}"
+				  			maxlength="200" style="width:75%;" label="#{langLabelBean.getLabel('attach_url')}"
+				  			 placeholder="#{langLabelBean.getLabel('not_need')}"/>
+									<p:commandButton value="#{langLabelBean.getLabel('attach_url')}" process="presentationUrl"
+									onclick="PF('dlg2').hide();" update="presentation"/>
+								</p:dialog>
+					  		</td>
+					  	</tr>
+			  		</table>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2">
+			  		<table>
+				  		<tr class="center">
+					  		<td class="right">
+					  			<p:outputLabel for="profile" value="#{langLabelBean.getLabel('profile')}" styleClass="fontWhite"/>
+					  		</td>
+					  		<td class="left">
+					  			<p:inputTextarea id="profile" styleClass="inputArea"
+					  			value="#{userEditBean.updateUser.profile}" label="#{langLabelBean.getLabel('profile')}"/>
+					  			<p:watermark for="profile" value="#{langLabelBean.getLabel('not_need')}100#{langLabelBean.getLabel('by_input_little')}" />
+					  		</td>
+					  	</tr>
+			  		</table>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2" class="center">
+		  			<h:outputText value="#{langLabelBean.getLabel('profile_text')}"  styleClass="fontWhite"/>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2" class="center">
+				    <p:fileUpload auto="true" fileUploadListener="#{userEditBean.handleUpload}" mode="advanced" 
+				    update="form:picture" dragDropSupport="false"
+		  			uploadLabel="#{langLabelBean.getLabel('upload')}"
+		  			cancelLabel="#{langLabelBean.getLabel('cancel')}"
+		  			requiredMessage="" converterMessage="" validatorMessage=""
+		  			 sizeLimit="10000000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2">
+		  			<p:graphicImage id="picture" value="#{(empty userEditBean.updateUser.picturePath) ? '/media/image/women.png' : userEditBean.updateUser.picturePath}" 
+		  			 stream="false" height="100" width="100" cache="false"/>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2">
+			  		<table>
+				  		<tr class="center">
+					  		<td class="right">
+					  			<p:outputLabel for="theme" value="#{langLabelBean.getLabel('theme')}" styleClass="fontWhite"/>
+					  		</td>
+					  		<td class="left">
+						  		<p:selectOneMenu id="theme" value="#{userEditBean.updateUser.theme}"
+						  		 label="#{langLabelBean.getLabel('theme')}">
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('skin_black')}" itemValue="pepper-grinder" />
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('thick_blue')}" itemValue="dot-luv" />
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('reptiles')}" itemValue="hot-sneaks" />
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('darkness')}" itemValue="ui-darkness" />
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('beige')}" itemValue="humanity" />
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('light_blue')}" itemValue="overcast" />
+						  			<f:selectItem itemLabel="#{langLabelBean.getLabel('light_yellow')}" itemValue="ui-lightness" />
+						  		</p:selectOneMenu>
+					  		</td>
+					  	</tr>
+			  		</table>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td>
+	  				<p:commandButton id="update" value="#{langLabelBean.getLabel('update')}" update="form" styleClass="buttonDefault"
+		  				actionListener="#{userEditBean.update}">
+		  				<p:confirm header="#{langLabelBean.getLabel('confirm_update')}"
+		  				 message="#{langLabelBean.getLabel('do_you_update')}" icon="fa fa-warning" />
+		  			</p:commandButton>
+		  			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				        <p:commandButton value="#{langLabelBean.getLabel('ok')}" type="submit" update="form" icon="fa fa-thumbs-up" styleClass="ui-confirmdialog-yes"/>
+				        <p:commandButton value="#{langLabelBean.getLabel('cancel')}" type="button" icon="fa fa-remove" styleClass="ui-confirmdialog-no"/>
+				    </p:confirmDialog>
+		  		</td>
+				<td class="center">
+					<p:commandButton value="#{langLabelBean.getLabel('game_top')}"  styleClass="buttonDefault"
+							actionListener="#{loginBean.backTop()}" process="@this"/>
+				</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td colspan="2">
+		  			<p:outputLabel value="#{langLabelBean.getLabel('need_asterisk')}" styleClass="fontWhite"/>
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+  				<td colspan="2">
+  					<p:outputLabel value="#{langLabelBean.getLabel('not_real_user_name')}" styleClass="fontWhite"/>
+  				</td>
+	  		</tr>
+	  	</table>
+	  	<p:blockUI block="form" trigger="update" />
+	 </h:form>
+  </h:body>
+</html>

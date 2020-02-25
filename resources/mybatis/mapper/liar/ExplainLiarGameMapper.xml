@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.explainLiarGame.mapper.ExplainLiarGameMapper">
+	<select id="selectLiarGame" parameterType="String" resultType="common.dto.LiarGameDto">
+	SELECT
+	liargame.id
+	, liargame.gameName
+	, liargame.userMasterId
+	, liargame.explanation
+	, googleid.presentationId as presentationUrl
+	, googleid.spreadsheetsId as spreadUrl
+	, googleid.documentId as documentUrl
+	, liargame.startTime AS startTimeData
+	, liargame.endTime AS endTimeData
+	, liargame.peopleCount
+	, liargame.nowPeopleCount
+	, liargame.separateTime
+	, liargame.oneDaySessionTimes
+	, liargame.banMinutes AS banSpeakMinutes
+	, liargame.level
+	, liargame.evaluation
+	, liargame.accessCode
+	, liargame.gameOpen
+	, liargame.round
+	, liargame.status
+	FROM game.liargame left outer join game.googleid
+	on
+	liargame.id = googleid.gameId
+	WHERE
+	liargame.id = #{gameId}
+	AND liargame.isStop ='0'
+	</select>
+
+	<update id="joinGame" parameterType="String">
+	UPDATE game.user
+	SET
+	gameId = #{gameId}
+	,isGame = '1'
+	WHERE user.id = #{userId};
+	</update>
+
+	<update id="joinUserPlus" parameterType="String">
+	UPDATE game.liargame
+	SET
+	nowPeopleCount = nowPeopleCount+1
+	WHERE liargame.id = #{gameId};
+	</update>
+
+</mapper>

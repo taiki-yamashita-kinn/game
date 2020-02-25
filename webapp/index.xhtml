@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/home.css" />
+	<link rel="icon" href="ico/favicon.ico"/>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+		<title>#{langLabelBean.getLabel('liar_title')}</title>
+	<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@OnlineLiar" />
+	<meta name="twitter:title" content="ウミガメのスープ OnlineTop" />
+	<meta name="twitter:description" content="ウミガメのスープ をOnlineで行うゲームのトップページです" />
+	<meta name="twitter:image" content="https://cdn.pixabay.com/photo/2016/11/15/08/56/singapore-1825610__340.jpg" />
+	<meta name="google-site-verification" content="32LHWGuTw6kv0_ii8OhdRqAAaS34YUI7ut7VdNA3pkk" />
+<script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script async="async" src="https://apis.google.com/js/platform.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9266770545412327",
+    enable_page_level_ads: true
+  });
+</script>
+</h:head>
+<h:body>
+	<ui:include src="template/header.xhtml" />
+<h:form>
+    <p:remoteCommand onstart="#{loginBean.outLoginMessage()}" update="growl"/>
+	<p:growl id="growl" life="1300"/>
+	<br/>
+<div class="g-ytsubscribe" data-channelid="UCQb94DwNOEDb3I3fomPEXEQ" data-layout="full" data-theme="dark" data-count="default">
+</div>
+		<table>
+			<tr>
+				<td class="center" colspan="2"><p:button value="#{langLabelBean.getLabel('play_game_start')}"
+						styleClass="buttonArea" immediate="true" title="#{langLabelBean.getLabel('play_game_start')}"
+						outcome="/liar/liarGameTop?faces-redirect=true" /></td>
+			</tr>
+		</table>
+		<br/>
+	  	<p:dataList  id="infoTable" var="info" value="#{informationBean.informationMessageList}" styleClass="infoTable"
+	       type="unordered" itemType="none" paginator="true" rows="10">
+
+			<f:facet name="header">
+	            #{langLabelBean.getLabel('info')}
+	        </f:facet>
+			<p:link href="#{info.url}" value="#{info.text}" target="_blank"/>
+		</p:dataList>
+	</h:form>
+	<br/>
+	<div style="height:300px;overflow:scroll;width:300px;" class="center">
+		<a class="twitter-timeline" href="https://twitter.com/OnlineLiar?ref_src=twsrc">
+		 #{langLabelBean.getLabel('liar_tweet')}</a>
+	</div>
+	
+</h:body>
+
+</html>

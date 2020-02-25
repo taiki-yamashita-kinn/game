@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+.inputArea {
+	width: 80%;
+}
+body {
+	background-image: url(../../image/liar/gamePage.jpg);
+}
+@media screen and (max-width:767px) {
+  .buttonArea {
+  	width:auto;
+	height:100px;
+	}
+	.buttonDefault {
+  	width:auto;
+	height:50px;
+	}
+	.space{
+	 height:130px;
+	 width:5px;
+	}
+	.ui-dialog {
+	width: inherit!important;
+	}
+	.font{
+		font-size: 14px;
+		font-weight: 200;
+	}
+	.paddingRight {
+		padding-right:inherit!important;
+		text-align: right;
+	}
+	.paddingLeft {
+		padding-right:inherit!important;
+		text-align: left;
+	}
+	.gameTitleFont {
+		font-size: 30px;
+		position: relative;
+		font-weight: 700;
+	}
+}

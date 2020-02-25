@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liar.option.vote.mapper.VoteMapper">
+	<delete id="deleteVote" parameterType="String">
+		DELETE FROM game.vote
+		WHERE userId = #{userId}
+		AND gameId = #{gameId};
+	</delete>
+
+	<insert id="insertVote" parameterType="String">
+		INSERT INTO game.vote
+		(userId,
+		gameId,
+		vote,
+		voteDate,
+		round)
+		VALUES
+		(#{userId},
+		#{gameId},
+		#{value},
+		SYSDATE(),
+		(SELECT round FROM liargame WHERE liargame.id = #{gameId}));
+	</insert>
+	
+	<select id="selectVote" parameterType="String" resultType="liar.option.vote.dto.VoteDto">
+	SELECT
+		vote.userId,
+		vote.gameId,
+		vote.vote,
+		vote.voteDate,
+		vote.round
+	FROM game.vote
+	<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<if test="userId != null and userId != ''">
+		AND vote.userId = #{userId}
+		</if>
+		<if test="gameId != null and gameId != ''">
+		AND vote.gameId = #{gameId}
+		</if>
+	</trim>
+	</select>
+
+
+</mapper>

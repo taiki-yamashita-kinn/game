@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+body {
+	background-color: #363a27;
+	/* background-size: cover; */
+}
+.ui-inputfield {
+    width:auto!important;
+}
+.inputArea {
+	width:80%;
+}

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+  <title>#{langLabelBean.getLabel('liar_world')}</title>
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <meta http-equiv="Content-Style-Type" content="text/css;charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@OnlineLiar" />
+	<meta name="twitter:title" content="#{langLabelBean.getLabel('liar_world')}" />
+	<meta name="twitter:description" content="#{langLabelBean.getLabel('liar_world')}:Liar Game トップページです" />
+	<meta name="twitter:image" content="https://cdn.pixabay.com/photo/2014/12/10/06/46/venetian-562759__340.jpg" />
+	<meta name="google-site-verification" content="32LHWGuTw6kv0_ii8OhdRqAAaS34YUI7ut7VdNA3pkk" />
+  <link rel="stylesheet" type="text/css" href="../css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../css/liar/liarGameTop.css" />
+	<link rel="icon" href="../ico/favicon.ico"/>
+  <h:outputStylesheet library="webjars"
+		name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+<script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script async="async" src="https://apis.google.com/js/platform.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9266770545412327",
+    enable_page_level_ads: true
+  });
+</script>
+  </h:head>
+  <h:body>
+	<ui:include src="../template/header.xhtml" />
+<div class="g-ytsubscribe" data-channelid="UCQb94DwNOEDb3I3fomPEXEQ" data-layout="full" data-theme="dark" data-count="default"></div>
+  <h:form>
+	<p:growl id="growl" showDetail="true"/>
+	<br/>
+	  	<table>
+	  		<tr class="center">
+		  		<td>
+			  		<p:button value="#{langLabelBean.getLabel('join_game')}"
+			  		styleClass="buttonArea" title="#{langLabelBean.getLabel('join_game')}"
+			  		 immediate="true" outcome="/liarGameList?faces-redirect=true" />
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td>
+			  		<p:button value="#{langLabelBean.getLabel('create_game')}"
+			  		 styleClass="buttonArea" title="#{langLabelBean.getLabel('create_game')}"
+			  		 immediate="true" outcome="/liar/newBuildLiarGame?faces-redirect=true" />
+		  		</td>
+	  		</tr>
+	  		<tr class="center">
+		  		<td>
+			  		<p:button value="#{langLabelBean.getLabel('help')}"
+			  		 styleClass="buttonArea" title="#{langLabelBean.getLabel('help')}"
+			  		 immediate="true" outcome="/help.xhtml?faces-redirect=true" />
+		  		</td>
+	  		</tr>
+	  	</table>
+	<br/>
+	  <iframe src="https://discordapp.com/widget?id=570269258026582016&amp;theme=dark" width="250" height="300"></iframe>
+	  </h:form>
+  </h:body>
+</html>

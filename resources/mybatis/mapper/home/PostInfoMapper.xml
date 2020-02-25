@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="home.manage.mapper.PostInfoMapper">
+	<insert id="registerInfo" parameterType="java.util.Map">
+	INSERT INTO game.infourl
+    (userId
+    ,url
+    ,title
+    ,text
+    ,showFlag
+    ,insertDate
+    )
+  	 VALUES (
+  	#{userId}
+  	,#{url}
+  	,#{title}
+  	,#{text}
+  	,0
+  	,SYSDATE()
+  	);
+	</insert>
+
+
+	<insert id="registerHelp" parameterType="java.util.Map">
+	INSERT INTO game.helpurl
+    (userId
+    ,url
+    ,title
+    ,text
+    ,showFlag
+    ,insertDate
+    )
+  	 VALUES (
+  	#{userId}
+  	,#{url}
+  	,#{title}
+  	,#{text}
+  	,0
+  	,SYSDATE()
+  	);
+	</insert>
+</mapper>

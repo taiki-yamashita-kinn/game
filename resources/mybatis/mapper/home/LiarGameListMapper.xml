@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="home.liarGameList.mapper.LiarGameListMapper">
+	<select id="selectAllGame" resultType="common.dto.LiarGameDto" parameterType="String">
+	SELECT
+	id
+	,gameName
+	,startTime AS startTimeData
+	,endTime AS endTimeData
+	,peopleCount
+	,nowPeopleCount
+	,evaluation
+	FROM game.liargame
+	WHERE liargame.isStop = '0'
+	<if test="filterData != null and filterData != ''">
+	and gameName LIKE '%${filterData}%'
+	</if>
+	ORDER BY startTimeData DESC
+	</select>
+</mapper>
